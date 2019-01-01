@@ -5,5 +5,15 @@
   "main": "index.js",
   "repository": "git@github.com:adetola-ralph/restack-capstone-project.git",
   "author": "Oreofeoluwapo Olutola <oreofeoluwapo.olutola@andela.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "boom": "^7.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-yields": "^1.1.2",
+    "fs-extra": "^7.0.1",
+    "morgan": "^1.9.1",
+    "winston": "^3.1.0"
+  }
 }
