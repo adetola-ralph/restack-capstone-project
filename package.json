@@ -1,0 +1,9 @@
+{
+  "name": "restack-capstone-project",
+  "version": "1.0.0",
+  "description": "Fullstack react app for restack course",
+  "main": "index.js",
+  "repository": "git@github.com:adetola-ralph/restack-capstone-project.git",
+  "author": "Oreofeoluwapo Olutola <oreofeoluwapo.olutola@andela.com>",
+  "license": "MIT"
+}
