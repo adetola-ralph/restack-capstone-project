@@ -1,2 +1,2 @@
-export { default } from './InstructionController';
-export { default } from './CategoryItemController';
+export { InstructionController } from './InstructionController';
+export { CategoryItemController } from './CategoryItemController';

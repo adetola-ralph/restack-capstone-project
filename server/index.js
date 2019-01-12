@@ -9,6 +9,9 @@ import mongoose from 'mongoose';
 import yields from 'express-yields';
 import bodyParser from 'body-parser';
 
+// routes
+import routes from './routes';
+
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config({
     silent: true,
@@ -24,6 +27,9 @@ const dbUrl = process.env.MONGODB_URI;
 
 /***** DB Config *****/
 mongoose.connect(dbUrl, { useNewUrlParser: true });
+
+// for testing purposes
+const db = mongoose.connection;
 /***** End of DB Config *****/
 
 app.use(cors());
@@ -33,8 +39,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(morgan('combined'));
 
+app.use(express.static("public"));
+
+routes(router);
+app.use('/api', router);
+
 // error handler
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err);
   if (err.isBoom) {
     res.status(err.output.statusCode).json(err.output.payload);
@@ -44,3 +55,6 @@ app.use((err, req, res) => {
 });
 
 app.listen(port, () => winston.info(`Server listening on ${port}`));
+
+export default app;
+export { db };
