@@ -1,11 +1,16 @@
 import { Schema, model } from 'mongoose';
 
-import Instruction from './Instruction';
+const Instruction = new Schema({
+  id: String,
+  title: String,
+  command: String,
+});
+
 
 const Category = new Schema({
   id: String,
   title: String,
-  instructions: [{ type: Schema.Types.ObjectId, ref: 'Instruction' }],
+  instructions: [Instruction],
 });
 
 export default model('CategoryItem', Category);

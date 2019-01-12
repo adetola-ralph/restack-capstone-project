@@ -46,7 +46,8 @@ app.use('/api', router);
 
 // error handler
 app.use((err, req, res, next) => {
-  console.error(err);
+  // winston.error(err);
+  // console.error(err)
   if (err.isBoom) {
     res.status(err.output.statusCode).json(err.output.payload);
   } else {

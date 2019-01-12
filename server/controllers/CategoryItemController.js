@@ -1,11 +1,16 @@
 import Boom from 'boom';
 
 import CategoryitemModel from '../model/Category';
-import InstructionModel from '../model/Instruction';
 
 class CategoryItemController {
-  static find() {
+  static *find(categoryItemId) {
+    const item = yield CategoryitemModel.findById(categoryItemId);
 
+    if (!item) {
+      throw Boom.notFound('Category item not found');
+    }
+
+    return item;
   }
 
   static *getAll() {
@@ -19,9 +24,7 @@ class CategoryItemController {
     }
 
     const { instructions } = categoryItem;
-    delete categoryItem.instructions;
     const newCategoryItem = new CategoryitemModel(categoryItem);
-    let newInstructions;
 
     if (instructions && instructions.length > 0) {
       // check if all instructions are valid
@@ -34,10 +37,7 @@ class CategoryItemController {
         );
       });
 
-      if (isValidInstruction) {
-        newInstructions = yield InstructionModel.create(instruction);
-        newCategoryItem.instructions = newInstructions.map(instruction => instruction._id);
-      } else {
+      if (!isValidInstruction) {
         throw Boom.badData('Wrong format for instructions');
       }
     }
@@ -45,8 +45,21 @@ class CategoryItemController {
     return yield newCategoryItem.save();
   }
 
-  static update() {
+  static *update(categoryItemId, categoryItem) {
+    const categoryItemToUpdate = yield CategoryItemController.find(categoryItemId);
 
+    if (!categoryItemToUpdate) {
+      throw Boom.notFound();
+    }
+
+    const keys = Object.keys(categoryItem);
+    for (const key of keys) {
+      if (key !== '_id') {
+        categoryItemToUpdate[key] = categoryItem[key];
+      }
+    }
+
+    return yield categoryItemToUpdate.save();
   }
 
   static delete() {
