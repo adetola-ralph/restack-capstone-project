@@ -106,13 +106,23 @@ describe('Integration Tests', () => {
       expect(res.body).to.eql({ ...testCategoryItem, title: 'Something else' });
     });
 
-    it('should throw ann error if category is non existing (update', async ()=> {
+    it('should throw an error if category is non existing (update)', async ()=> {
       const objectId = new mongoose.Types.ObjectId;
       const res = await api.patch(`/api/categoryItems/${objectId}`)
         .send({
           title: 'Something else',
         })
         .expect(404);
+    });
+
+    it('should be able to delete a category item', async () => {
+      const res = await api.delete(`/api/categoryItems/${testCategoryItem._id}`).expect(200);
+
+      expect(res.body).to.haveOwnProperty('message', 'Item deleted');
+    });
+
+    it('should throw an error if category is non existing (delete)', async () => {
+      const res = await api.delete(`/api/categoryItems/${testCategoryItem._id}`).expect(404);
     });
 
     after(() => {

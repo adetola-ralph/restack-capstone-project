@@ -62,8 +62,15 @@ class CategoryItemController {
     return yield categoryItemToUpdate.save();
   }
 
-  static delete() {
+  static *delete(categoryItemId) {
+    const categoryItemToDelete = yield CategoryItemController.find(categoryItemId);
 
+    if (!categoryItemToDelete) {
+      throw Boom.notFound();
+    }
+
+    yield categoryItemToDelete.remove();
+    return;
   }
 }
 

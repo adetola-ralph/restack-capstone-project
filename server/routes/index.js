@@ -22,11 +22,16 @@ const routes = (router) => {
     .patch(function* (req, res) {
       const { id } = req.params;
 
-
       const updateCategoryItem = yield CategoryItemController.update(id, req.body);
-
       res.json(updateCategoryItem);
     })
+    .delete(function* (req, res) {
+      const { id } = req.params;
+      yield CategoryItemController.delete(id);
+      res.json({
+        message: 'Item deleted',
+      });
+    });
 };
 
 export default routes;
