@@ -131,7 +131,7 @@ describe('Integration Tests', () => {
     });
   });
 
-  describe.skip('error handling', () => {
+  describe('error handling', () => {
     before(() => {
       const stub = sinon.stub(CategoryItemController, 'getAll')
       stub.throws('This is an error');
