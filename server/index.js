@@ -3,11 +3,16 @@ import path from 'path';
 import fs from 'fs-extra';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import webpack from 'webpack';
 import express from 'express';
 import winston from 'winston';
 import mongoose from 'mongoose';
 import yields from 'express-yields';
 import bodyParser from 'body-parser';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
+import config from '../webpack.config.babel';
 
 // routes
 import routes from './routes';
@@ -37,12 +42,28 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 app.use(express.static("public"));
 
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(config);
+
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+  }));
+
+  app.use(webpackHotMiddleware(compiler));
+}
+
 routes(router);
 app.use('/api', router);
+
+app.get(['/'], function* (req, res) {
+  let index = yield fs.readFile('./public/_index.html', 'utf-8');
+
+  res.send(index);
+});
 
 // error handler
 app.use((err, req, res, next) => {

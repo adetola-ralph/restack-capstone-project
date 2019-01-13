@@ -10,11 +10,6 @@ const miniCssPlugin = new MiniCssExtractPlugin({
 });
 
 const webpackConfig = {
-  mode: devMode ? 'development' : 'production',
-  devtool: devMode ? 'inline-source-map' : '',
-  optimization: {
-    minimize: !devMode,
-  },
   entry: () => {
     const entry = [
       'babel-regenerator-runtime',
@@ -50,7 +45,7 @@ const webpackConfig = {
     rules: [
       {
         test: /\.jsx?$/,
-        include: path.join(__dirname, 'src'),
+        include: path.join(__dirname, 'client'),
         exclude: /node_modules/,
         loaders: ['babel-loader'],
       },
@@ -75,6 +70,11 @@ const webpackConfig = {
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
       },
     ],
+  },
+  mode: devMode ? 'development' : 'production',
+  devtool: devMode ? 'inline-source-map' : '',
+  optimization: {
+    minimize: !devMode,
   },
 };
 

@@ -17,6 +17,6 @@ const middlewares = () => {
   return middleware;
 };
 
-const createStore = (initialState) => createStore(() => {}, initialState, applyMiddleware(...middlewares()));
+const configureStore = (initialState) => createStore(() => {}, initialState, applyMiddleware(...middlewares()));
 
-export default createStore;
+export default configureStore;
