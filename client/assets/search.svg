@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44.207" height="44" viewBox="0 0 44.207 44">
+    <defs>
+        <style>
+            .cls-1,.cls-2,.cls-4{fill:none}.cls-1,.cls-2{stroke:#707070}.cls-2{stroke-linecap:round}.cls-3{stroke:none}
+        </style>
+    </defs>
+    <g id="Group_4" data-name="Group 4" transform="translate(-1258 -245)">
+        <g id="Ellipse_1" class="cls-1" data-name="Ellipse 1" transform="translate(1258 245)">
+            <circle cx="22" cy="22" r="22" class="cls-3"/>
+            <circle cx="22" cy="22" r="21.5" class="cls-4"/>
+        </g>
+        <path id="Line_1" d="M6 6L0 0" class="cls-2" data-name="Line 1" transform="translate(1295.5 281.5)"/>
+    </g>
+</svg>

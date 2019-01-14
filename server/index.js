@@ -65,10 +65,14 @@ app.get(['/'], function* (req, res) {
   res.send(index);
 });
 
+/**** static html ****/
+app.use('/static', express.static("static-pages"));
+/**** end static html ****/
+
 // error handler
 app.use((err, req, res, next) => {
   // winston.error(err);
-  // console.error(err)
+  console.error(err)
   if (err.isBoom) {
     res.status(err.output.statusCode).json(err.output.payload);
   } else {

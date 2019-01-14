@@ -50,8 +50,8 @@ const webpackConfig = {
         loaders: ['babel-loader'],
       },
       {
-        test: /\.scss$/,
-        loaders: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        test: /\.css$/,
+        loaders: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
