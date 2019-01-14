@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 // root component
 import App from './components/App';
+import { loadCategory } from './store/actions/categoryActions';
 
 import '@fortawesome/fontawesome-free/css/all.css';
 
@@ -11,6 +12,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import configureStore from './store';
 
 const store = configureStore();
+store.dispatch(loadCategory());
 
 const renderApp = (_App) => {
   render(

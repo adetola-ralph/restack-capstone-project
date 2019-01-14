@@ -3,6 +3,8 @@ import logger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 
+import reducers from './reducer';
+
 const middlewares = () => {
   const middleware = [
     logger,
@@ -17,6 +19,6 @@ const middlewares = () => {
   return middleware;
 };
 
-const configureStore = (initialState) => createStore(() => {}, initialState, applyMiddleware(...middlewares()));
+const configureStore = (initialState) => createStore(reducers, initialState, applyMiddleware(...middlewares()));
 
 export default configureStore;
