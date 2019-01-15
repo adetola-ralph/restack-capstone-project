@@ -1,5 +1,6 @@
 import shortid from 'shortid';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 import { CategoriesCollection } from './styled';
@@ -8,52 +9,10 @@ import CategoryItemComponent from './CategoryItemComponent';
 class CategoryCollectionComponent extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      categoryItems: [
-        {
-          _id: shortid.generate(),
-          title: 'Configuration',
-          instructions: [
-            {
-              _id: shortid.generate(),
-              title: 'Install git on macOS with Homebrew',
-              command: 'brew install git',
-            },
-            {
-              _id: shortid.generate(),
-              title: 'Install git on Debian-based linux',
-              command: 'sudo apt-get install git',
-            }
-          ],
-        },
-        {
-          _id: shortid.generate(),
-          title: 'installing git',
-          instructions: [
-            {
-              _id: shortid.generate(),
-              title: 'Install git on macOS with Homebrew',
-              command: 'brew install git',
-            },
-            {
-              _id: shortid.generate(),
-              title: 'Install git on Debian-based linux',
-              command: 'sudo apt-get install git',
-            },
-            {
-              _id: shortid.generate(),
-              title: 'Install git on Windows with Chocolatey',
-              command: 'choco install git',
-            },
-          ],
-        },
-      ],
-    };
   }
 
   render() {
-    const { categoryItems } = this.state;
+    const { categoryItems } = this.props;
 
     return (
       <CategoriesCollection>
@@ -66,7 +25,24 @@ class CategoryCollectionComponent extends Component {
     );
   }
 }
-// CategoryCollectionComponent.propTypes = {
-// };
+CategoryCollectionComponent.propTypes = {
+  categoryItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      instructions: PropTypes.arrayOf(
+        PropTypes.shape({
+          _id: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired,
+          command: PropTypes.string.isRequired,
+        })
+      ),
+    })
+  ),
+};
 
-export default CategoryCollectionComponent;
+const mapStateToProps = ({ categoryItems }) => ({
+  categoryItems,
+});
+
+export default connect(mapStateToProps)(CategoryCollectionComponent);
