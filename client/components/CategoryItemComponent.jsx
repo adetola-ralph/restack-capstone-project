@@ -1,7 +1,11 @@
-import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
+import Clipboard from 'clipboard';
 
 import { Category, Instruction, CategoryHeaderActions, CategoryHeaderActionsIcons, StyledIcon } from './styled';
+
+const clipboard = new Clipboard('.instruction-copy');
+clipboard.on('success', () => console.info('copied'));
 
 const CategoryItemComponent = ({ category }) => {
   return (
@@ -18,7 +22,9 @@ const CategoryItemComponent = ({ category }) => {
           category.instructions.map(instruction => (
             <Instruction key={instruction._id}>
               <div>{instruction.title}</div>
-              <div>{instruction.command} <StyledIcon className="fas fa-info-circle" /></div>
+              <div data-clipboard-text={instruction.command} className="instruction-copy">
+                {instruction.command} <StyledIcon className="fas fa-info-circle" />
+              </div>
             </Instruction>
           ))
         }

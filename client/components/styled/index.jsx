@@ -186,7 +186,6 @@ export const CategoriesCollection = styled.div`
 export const Category = styled.div`
   border-top: 4px solid var(--iris);
   width: calc(25% - 15px);
-  min-height: 350px;
   background-color: var(--pale-grey-two);
   margin-right: 15px;
   margin-bottom: 15px;
@@ -258,4 +257,5 @@ export const CategoryHeaderActionsIcons = styled(StyledIcon)`
   font-size: ${props => props.fontSize || '13px'};
   margin-left: 10px;
   color: ${props => props.color || 'var(--iris)'};
+  cursor: pointer;
 `;
