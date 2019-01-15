@@ -55,7 +55,7 @@ const mockData = [
         command: 'git init [project-name]',
       },
       {
-        title: 'CDownloads a project and its entire version history',
+        title: 'Downloads a project and its entire version history',
         command: 'git clone [url]',
       },
     ],
