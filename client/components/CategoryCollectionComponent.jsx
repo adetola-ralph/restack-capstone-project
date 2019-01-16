@@ -41,8 +41,22 @@ CategoryCollectionComponent.propTypes = {
   ),
 };
 
-const mapStateToProps = ({ categoryItems }) => ({
-  categoryItems,
-});
+const mapStateToProps = ({ categoryItems, search }) => {
+  let filteredCategoryItems;
+  const { searchIndexResult, searchValue } = search;
+
+  if (searchValue) {
+    filteredCategoryItems = categoryItems.filter(item =>  searchIndexResult.includes(item._id))
+      // the arrangement of some the results are wrong
+      // .sort((a, b) => {
+      //   return searchIndexResult.indexOf(a._id) - searchIndexResult.indexOf(b._id);
+      // });
+  }
+
+
+  return {
+    categoryItems: filteredCategoryItems || categoryItems,
+  };
+};
 
 export default connect(mapStateToProps)(CategoryCollectionComponent);

@@ -1,56 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { Search, SearchInput, SearchIcon, SearchLabel } from './styled';
 
-import SearchService from '../service/search';
+import { searchWithValue } from '../store/actions/searchActions';
 
-// const SearchComponent = ({ onChange }) => {
-//   return (
-//     <Search>
-//       <SearchLabel>
-//         <SearchInput placeholder="Search..."/>
-//         <SearchIcon />
-//       </SearchLabel>
-//     </Search>
-//   );
-// };
-
-class SearchComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchValue: ''
-    }
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(searchValue) {
-    this.setState({
-      searchValue,
-    }, () => {
-      const ty = SearchService.search(this.state.searchValue);
-      console.log(ty);
-      // console.log(SearchService)
-    });
-
-
-  }
-
-  render() {
-    return (
-      <Search>
-        <SearchLabel>
-          <SearchInput placeholder="Search..." value={this.state.searchValue} onChange={(e) => this.onChange(e.target.value)} />
-          <SearchIcon />
-        </SearchLabel>
-      </Search>
-    )
-  }
-}
-
-SearchComponent.propTypes = {
-  // onChange: PropTypes.func.isRequired,
+const SearchComponent = ({ onChange, searchValue }) => {
+  return (
+    <Search>
+      <SearchLabel>
+      <SearchInput placeholder="Search..." value={searchValue} onChange={(e) => onChange(e.target.value)} />
+        <SearchIcon />
+      </SearchLabel>
+    </Search>
+  );
 };
 
-export default SearchComponent;
+SearchComponent.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  searchValue: PropTypes.string,
+};
+
+const mapStateToProps = ({ search }) => {
+  const { searchValue } = search;
+  return {
+    searchValue,
+  };
+};
+
+const  mapDispatchToProps = (dispatch) => {
+  return {
+    onChange: (value) => dispatch(searchWithValue(value)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchComponent);
