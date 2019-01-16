@@ -29,8 +29,16 @@ class SearchService {
     }, []);
   }
 
-  search(value) {
-    return this.index.search(`${value}*`);
+  search(value = '') {
+    if (value) {
+      try {
+        return this.index.search(`${value}^2 ${value}*^1`);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    return this.index.search('');
   }
 }
 
