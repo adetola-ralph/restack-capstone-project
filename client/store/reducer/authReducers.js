@@ -25,7 +25,13 @@ const defaultState = {
     email: '',
     password: '',
   },
-  registerError: {},
+  registerError: {
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmpassword: '',
+  },
   registerForm: {
     firstname: '',
     lastname: '',
@@ -46,10 +52,28 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         isLoginForm: !isLoginForm,
         isRegisterForm: !isRegisterForm,
-        loginError: {},
-        registerError: {},
-        loginForm: {},
-        registerForm: {},
+        loginError: {
+          email: '',
+          password: '',
+        },
+        registerError: {
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '',
+          confirmpassword: '',
+        },
+        loginForm: {
+          email: '',
+          password: '',
+        },
+        registerForm: {
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '',
+          confirmpassword: '',
+        },
         authError: '',
       }
     }
@@ -123,10 +147,28 @@ const authReducer = (state = defaultState, action) => {
         user,
         token,
         isAuthenticated: true,
-        loginError: {},
-        registerError: {},
-        loginForm: {},
-        registerForm: {},
+        loginError: {
+          email: '',
+          password: '',
+        },
+        registerError: {
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '',
+          confirmpassword: '',
+        },
+        loginForm: {
+          email: '',
+          password: '',
+        },
+        registerForm: {
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '',
+          confirmpassword: '',
+        },
         authError: '',
       }
     }
@@ -138,10 +180,28 @@ const authReducer = (state = defaultState, action) => {
         user,
         token,
         isAuthenticated: true,
-        loginError: {},
-        registerError: {},
-        loginForm: {},
-        registerForm: {},
+        loginError: {
+          email: '',
+          password: '',
+        },
+        registerError: {
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '',
+          confirmpassword: '',
+        },
+        loginForm: {
+          email: '',
+          password: '',
+        },
+        registerForm: {
+          firstname: '',
+          lastname: '',
+          email: '',
+          password: '',
+          confirmpassword: '',
+        },
         authError: '',
       }
     }
