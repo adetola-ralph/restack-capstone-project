@@ -1,24 +1,82 @@
+import { connect } from 'react-redux';
 import React, { Fragment } from 'react';
 
 import BodyComponent from './BodyComponent';
 import LoginComponent from './LoginComponent';
-import RegisterComponent from './RegisterComponent';
 import SidebarComponent from './SidebarComponent';
+import RegisterComponent from './RegisterComponent';
 
-import { GlobalStyle, Header, Container, Brand, SidebarContainer, Avatar, TitleHeader, AddButton } from './styled';
+import {
+  loginAction,
+  toggleAuthForm,
+  registrationAction,
+  setLoginFormField,
+  setRegisterFormField,
+} from '../store/actions/authActions';
 
-const App = () => {
+import {
+  Brand,
+  Avatar,
+  Header,
+  AddButton,
+  Container,
+  TitleHeader,
+  GlobalStyle,
+  SidebarContainer,
+} from './styled';
+
+const App = ({
+  user,
+  loginForm,
+  authError,
+  loginError,
+  isLoginForm,
+  loginAction,
+  registerForm,
+  registerError,
+  toggleAuthForm,
+  isRegisterForm,
+  isAuthenticated,
+  setLoginFormField,
+  registrationAction,
+  setRegisterFormField,
+}) => {
   return(
     <Fragment>
       <GlobalStyle />
       <SidebarComponent>
         <SidebarContainer>
-          <Fragment>
-            <Avatar size="200px"></Avatar>
-            <p style={{'marginTop': '20px'}}>Hello Name!</p>
-          </Fragment>
-          <LoginComponent />
-          <RegisterComponent />
+          {
+            isAuthenticated &&
+            <Fragment>
+              <Avatar size="200px"></Avatar>
+              <p style={{'marginTop': '20px', 'textTransform': 'capitalize'}}>Hello { `${user.firstname} ${user.lastname}`}!</p>
+            </Fragment>
+          }
+          {
+            isLoginForm &&
+            !isAuthenticated &&
+            <LoginComponent
+              loginForm={loginForm}
+              loginError={loginError}
+              authError={authError}
+              loginAction={loginAction}
+              toggleAuthForm={toggleAuthForm}
+              onFieldChange={setLoginFormField}
+            />
+          }
+          {
+            isRegisterForm &&
+            !isAuthenticated &&
+            <RegisterComponent
+              registerForm={registerForm}
+              authError={authError}
+              toggleAuthForm={toggleAuthForm}
+              registrationAction={registrationAction}
+              onFieldChange={setRegisterFormField}
+              registerError={registerError}
+            />
+          }
         </SidebarContainer>
       </SidebarComponent>
       <Header>
@@ -39,4 +97,30 @@ const App = () => {
   );
 };
 
-export default App;
+export const mapStateToProps = ({ auth }) => {
+  const { isAuthenticated, isLoginForm, isRegisterForm, user, loginForm, registerForm, loginError, registerError, authError } = auth;
+
+  return {
+    user,
+    loginForm,
+    authError,
+    loginError,
+    isLoginForm,
+    registerForm,
+    registerError,
+    isRegisterForm,
+    isAuthenticated,
+  };
+};
+
+export const mapDispatchToProps = (dispatch) => {
+  return {
+    loginAction: () => dispatch(loginAction()),
+    registrationAction: () => dispatch(registrationAction()),
+    toggleAuthForm: () => dispatch(toggleAuthForm()),
+    setLoginFormField: (field, value) => dispatch(setLoginFormField(field, value)),
+    setRegisterFormField: (field, value) => dispatch(setRegisterFormField(field, value)),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

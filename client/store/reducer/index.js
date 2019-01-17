@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import categoryItems from './categoryReducer';
 import search from './searchReducer';
+import auth from './authReducers';
+import categoryItems from './categoryReducer';
 
 export default combineReducers({
-  categoryItems,
+  auth,
   search,
+  categoryItems,
 });

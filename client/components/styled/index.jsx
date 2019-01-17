@@ -328,7 +328,7 @@ export const AuthContainer = styled.div`
 `;
 
 export const AuthContainerTitle = styled.p`
-  font-size: 34px;
+  font-size: 26px;
   font-weight: 300;
   color: var(--iris);
   text-align: center;
@@ -348,8 +348,8 @@ export const FormInput = styled.input`
   background-color: var(--pale-grey);
   padding: 16px;
   box-sizing: border-box;
-  border: 0;
-  font-size: 20px;
+  border: ${props => props.hasError ? 'var(--pale-red) 1px solid' : 0};
+  font-size: 15px;
 
   :active, :focus {
     outline: none;
@@ -364,7 +364,7 @@ export const FormInput = styled.input`
 export const FormSwitch = styled.div`
   display: block;
   width: 100%;
-  margin: 10px 0;
+  margin: 15px 0 5px;
   text-align: center;
   text-decoration: none;
   color: var(--iris);
@@ -374,15 +374,17 @@ export const FormSwitch = styled.div`
 `;
 
 export const FormAction = styled.div`
+  margin-top: 20px;
   display: flex;
-  justify-content: flex-end;
+  // justify-content: flex-end;
 `;
 
 export const FormButton = styled.button`
   background-color: var(--iris);
+  background-image: linear-gradient(194deg, var(--iris), var(--deep-lavender));
   color: var(--white);
-  width: 85px;
-  height: 31px;
+  width: 100%;
+  height: 40px;
   border-radius: 4px;
   border: 0;
   transition: .4s transform;
@@ -402,4 +404,12 @@ export const FormButton = styled.button`
     -webkit-transform: scale(0.9);
             transform: scale(0.9);
   }
+`;
+
+export const ErrorMessage = styled.p`
+  text-align: center;
+  color: var(--pale-red);
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 `;
