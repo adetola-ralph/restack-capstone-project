@@ -12,13 +12,13 @@ class CategoryCollectionComponent extends Component {
   }
 
   render() {
-    const { categoryItems } = this.props;
+    const { categoryItems, isAuthenticated } = this.props;
 
     return (
       <CategoriesCollection>
         {
           categoryItems.map(categoryItem => (
-            <CategoryItemComponent category={categoryItem} key={categoryItem._id} />
+            <CategoryItemComponent category={categoryItem} key={categoryItem._id} isAuthenticated={isAuthenticated} />
           ))
         }
       </CategoriesCollection>
@@ -41,9 +41,10 @@ CategoryCollectionComponent.propTypes = {
   ),
 };
 
-const mapStateToProps = ({ categoryItems, search }) => {
+const mapStateToProps = ({ categoryItems, search, auth }) => {
   let filteredCategoryItems;
   const { searchIndexResult, searchValue } = search;
+  const { isAuthenticated } = auth;
 
   if (searchValue) {
     filteredCategoryItems = categoryItems.filter(item =>  searchIndexResult.includes(item._id))
@@ -56,6 +57,7 @@ const mapStateToProps = ({ categoryItems, search }) => {
 
   return {
     categoryItems: filteredCategoryItems || categoryItems,
+    isAuthenticated,
   };
 };
 

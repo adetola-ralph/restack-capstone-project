@@ -11,6 +11,7 @@ import {
   SET_LOGIN_FORM_FIELD,
   SET_REGISTER_FORM_FIELD,
   SUCCESSFUL_REGISTRATION,
+  LOGOUT,
 } from '../constants';
 
 export const toggleAuthForm = () => ({
@@ -120,3 +121,7 @@ export const registrationAction = () => async (dispatch, getState) => {
     dispatch(failedRegister('User with the email already exists'));
   }
 };
+
+export const logout = () => ({
+  type: LOGOUT,
+});

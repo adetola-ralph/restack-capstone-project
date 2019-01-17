@@ -1,4 +1,5 @@
 import {
+  LOGOUT,
   LOGIN_ERROR,
   FAILED_LOGIN,
   SUCCESSFUL_LOGIN,
@@ -143,6 +144,9 @@ const authReducer = (state = defaultState, action) => {
         registerForm: {},
         authError: '',
       }
+    }
+    case (LOGOUT): {
+      return defaultState;
     }
     case (FAILED_LOGIN):
     case (FAILED_REGISTRATION): {

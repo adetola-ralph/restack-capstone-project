@@ -7,15 +7,18 @@ import { Category, Instruction, CategoryHeaderActions, CategoryHeaderActionsIcon
 const clipboard = new Clipboard('.instruction-copy');
 clipboard.on('success', () => console.info('copied'));
 
-const CategoryItemComponent = ({ category }) => {
+const CategoryItemComponent = ({ category, isAuthenticated }) => {
   return (
     <Category>
       <header>
         {category.title}
-        <CategoryHeaderActions>
-          <CategoryHeaderActionsIcons className="far fa-clone" />
-          <CategoryHeaderActionsIcons className="fas fa-trash-alt" color="#f0533c" />
-        </CategoryHeaderActions>
+        {
+          isAuthenticated &&
+          <CategoryHeaderActions>
+            <CategoryHeaderActionsIcons className="far fa-clone" />
+            <CategoryHeaderActionsIcons className="fas fa-trash-alt" color="#f0533c" />
+          </CategoryHeaderActions>
+        }
       </header>
       <article>
         {
@@ -34,6 +37,7 @@ const CategoryItemComponent = ({ category }) => {
 };
 
 CategoryItemComponent.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
   category: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

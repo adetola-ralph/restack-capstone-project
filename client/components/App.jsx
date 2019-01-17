@@ -7,6 +7,7 @@ import SidebarComponent from './SidebarComponent';
 import RegisterComponent from './RegisterComponent';
 
 import {
+  logout,
   loginAction,
   toggleAuthForm,
   registrationAction,
@@ -27,6 +28,7 @@ import {
 
 const App = ({
   user,
+  logout,
   loginForm,
   authError,
   loginError,
@@ -51,6 +53,7 @@ const App = ({
             <Fragment>
               <Avatar size="200px"></Avatar>
               <p style={{'marginTop': '20px', 'textTransform': 'capitalize'}}>Hello { `${user.firstname} ${user.lastname}`}!</p>
+              <p onClick={logout}>Logout</p>
             </Fragment>
           }
           {
@@ -90,9 +93,12 @@ const App = ({
         </h1>
       </TitleHeader>
       <BodyComponent />
-      <AddButton>
-        <i className="fas fa-plus"></i>
-      </AddButton>
+      {
+        isAuthenticated &&
+        <AddButton>
+          <i className="fas fa-plus"></i>
+        </AddButton>
+      }
     </Fragment>
   );
 };
@@ -115,6 +121,7 @@ export const mapStateToProps = ({ auth }) => {
 
 export const mapDispatchToProps = (dispatch) => {
   return {
+    logout: () => dispatch(logout()),
     loginAction: () => dispatch(loginAction()),
     registrationAction: () => dispatch(registrationAction()),
     toggleAuthForm: () => dispatch(toggleAuthForm()),
