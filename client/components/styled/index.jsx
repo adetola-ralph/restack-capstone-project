@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     --pale-grey-two: #f9fbfd;
     --pale-red: #f0533c;
     --deep-lavender: #9066b8;
+    --white-49: rgba(255, 255, 255, 0.49);
   }
 
   body {
@@ -190,6 +191,7 @@ export const Category = styled.div`
   margin-right: 15px;
   margin-bottom: 15px;
   box-sizing: border-box;
+  box-shadow: 0 6px 8px rgba(102,119,136,.03), 0 1px 2px rgba(102,119,136,.3);
 
   header {
     height: 40px;
@@ -258,4 +260,44 @@ export const CategoryHeaderActionsIcons = styled(StyledIcon)`
   margin-left: 10px;
   color: ${props => props.color || 'var(--iris)'};
   cursor: pointer;
+`;
+
+export const SideBar = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: var(--pale-grey);
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.16);
+  width: 400px;
+  left: ${props => props.isOpen ? '0' : '-400px'};
+  z-index: 99999;
+  transition: left 0.3s;
+`;
+
+export const OpenIcon = styled(StyledIcon)`
+  font-size: ${props => props.fontSize || '14px'};
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50px;
+  right: -30px;
+  padding: 5px;
+  background-color: var(--pale-grey);
+  box-shadow: 1px 0px 6px 0 rgba(0,0,0,0.16);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+export const SideBarMask = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--white-49);
+  z-index: 99997;
+  cursor: pointer;
+  display: ${props => props.isShowMask ? 'block' : 'none'};
 `;

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 
 import BodyComponent from './BodyComponent';
+import SidebarComponent from './SidebarComponent';
 
 import { GlobalStyle, Header, Container, Brand, AuthDetails, Avatar, TitleHeader, AddButton } from './styled';
 
@@ -8,6 +9,7 @@ const App = () => {
   return(
     <Fragment>
       <GlobalStyle />
+      <SidebarComponent />
       <Header>
         <Container>
           <Brand>a cheat sheet</Brand>
