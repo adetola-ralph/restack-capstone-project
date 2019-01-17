@@ -1,4 +1,4 @@
-import { CategoryItemController } from '../controllers';
+import { CategoryItemController, AuthController } from '../controllers';
 
 const routes = (router) => {
   router.route('/categoryItems')
@@ -31,6 +31,18 @@ const routes = (router) => {
       res.json({
         message: 'Item deleted',
       });
+    });
+
+  router
+    .post('/auth/login', function* (req, res) {
+      const { body } = req;
+      const result = yield AuthController.login(body);
+      res.json(result);
+    })
+    .post('/auth/register', function* (req, res) {
+      const { body } = req;
+      const result = yield AuthController.register(body);
+      res.json(result);
     });
 };
 

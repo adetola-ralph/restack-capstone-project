@@ -72,7 +72,7 @@ app.use('/static', express.static("static-pages"));
 // error handler
 app.use((err, req, res, next) => {
   // winston.error(err);
-  console.error(err)
+  // console.error(err)
   if (err.isBoom) {
     res.status(err.output.statusCode).json(err.output.payload);
   } else {

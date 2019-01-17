@@ -11,6 +11,17 @@ const { expect } = chai;
 const api = supertest.agent(app);
 let testCategoryItem;
 
+let registereduser;
+const validUser = {
+  email: 'admin@oreofe.me',
+  password: 'password',
+};
+
+const nonExistentUser = {
+  email: 'non@oreofe.me',
+  password: 'password',
+}
+
 describe('Integration Tests', () => {
   describe('Category Item', () => {
     before(async () => {
@@ -124,10 +135,80 @@ describe('Integration Tests', () => {
     it('should throw an error if category is non existing (delete)', async () => {
       const res = await api.delete(`/api/categoryItems/${testCategoryItem._id}`).expect(404);
     });
+  });
 
-    after(() => {
-      db.dropDatabase();
-      db.close();
+  describe('Auth', () => {
+    describe('register', () => {
+      it('should error if any field is missing', async () => {
+        const result = await api.post('/api/auth/register')
+          .send({})
+          .expect(422);
+
+        const payload = JSON.parse(result.body.message);
+        expect(payload).to.haveOwnProperty('message', 'Missing field');
+        expect(payload).to.haveOwnProperty('fields');
+        expect(payload.fields).to.deep.include('firstname');
+        expect(payload.fields).to.deep.include('lastname');
+        expect(payload.fields).to.deep.include('email');
+        expect(payload.fields).to.deep.include('password');
+      });
+
+      it('should register a user and send a jwt token', async () => {
+        const result = await api.post('/api/auth/register')
+          .send({ ...validUser, firstname: 'Oreofe', lastname: 'Olutola'})
+          .expect(200);
+
+        registereduser = result.body;
+        expect(registereduser).to.haveOwnProperty('user');
+        expect(registereduser.user).to.not.haveOwnProperty('password');
+        expect(registereduser).to.haveOwnProperty('token');
+      });
+
+      it('should return 409 for an existing email', async () => {
+        const result = await api.post('/api/auth/register')
+          .send({ ...validUser, firstname: 'Ife', lastname: 'Olutola'})
+          .expect(409);
+
+        const { message } = result.body;
+        expect(message).to.eql('User with email already exists');
+      });
+    });
+
+    describe('login', () => {
+      it('should return 404 for no existing user', async () => {
+        const result = await api.post('/api/auth/login')
+          .send(nonExistentUser)
+          .expect(404);
+
+        expect(result.body.message).to.eql('User not found');
+      });
+
+      it('should return 401 for wrong password', async () => {
+        const result = await api.post('/api/auth/login')
+          .send({ ...validUser, password: 'wrongpassword' })
+          .expect(401);
+
+        expect(result.body.message).to.eql('Wrong password');
+      });
+
+      it('should return 400 for missing fields', async () => {
+        const result = await api.post('/api/auth/login')
+          .send({})
+          .expect(422);
+
+        expect(result.body.message).to.eql('Missing fields');
+      });
+
+      it('should successfully login a user', async () => {
+        const result = await api.post('/api/auth/login')
+          .send(validUser)
+          .expect(200);
+
+        expect(result.body).to.haveOwnProperty('user');
+        expect(result.body.user).to.not.haveOwnProperty('password');
+        expect(result.body.user).to.not.haveOwnProperty('fullname');
+        expect(result.body).to.haveOwnProperty('token');
+      });
     });
   });
 
@@ -144,5 +225,10 @@ describe('Integration Tests', () => {
     after(() => {
       sinon.resetBehavior();
     });
+  });
+
+  after(() => {
+    db.dropDatabase();
+    db.close();
   });
 });

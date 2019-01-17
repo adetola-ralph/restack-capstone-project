@@ -13,7 +13,7 @@ const App = () => {
       <Header>
         <Container>
           <Brand>a cheat sheet</Brand>
-          <AuthDetails>
+          {/* <AuthDetails>
             <span>
               <a href="">Login</a>
             </span>
@@ -23,7 +23,7 @@ const App = () => {
             </span>
             <span>Oreofeoluwapo Olutola</span>
             <Avatar></Avatar>
-          </AuthDetails>
+          </AuthDetails> */}
         </Container>
       </Header>
       <TitleHeader>
