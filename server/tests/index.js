@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import supertest from 'supertest';
 
 import app, { db } from '../';
-import { CategoryItemController, InstructionController } from '../controllers';
+import { CategoryItemController } from '../controllers';
 import CategoryItemModel from '../model/Category';
 
 const { expect } = chai;
@@ -36,7 +36,6 @@ describe('Integration Tests', () => {
       expect(res.body).to.not.be.empty;
       expect(res.body).to.be.an('array')
       expect(res.body).to.have.lengthOf(1);
-      // expect(res.body[0].instructions).to.be.an('array');
     });
 
     it('should create new category Items without instructions', async () => {

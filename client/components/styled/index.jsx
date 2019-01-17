@@ -65,10 +65,16 @@ export const AuthDetails = styled.div`
 `;
 
 export const Avatar = styled.div`
-  height: 40px;
-  width: 40px;
+  height: ${props => props.size || '40px'};
+  width: ${props => props.size || '40px'};
   background-color: var(--white);
   border-radius: 50%;
+  cursor: pointer;
+  border: 5px solid transparent;
+
+  :hover {
+    border: 5px solid #d6d6d6;
+  }
 `;
 
 export const Container = styled.div`
@@ -265,13 +271,13 @@ export const CategoryHeaderActionsIcons = styled(StyledIcon)`
 export const SideBar = styled.div`
   position: fixed;
   top: 0;
-  bottom: 0;
   background-color: var(--pale-grey);
   box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.16);
   width: 400px;
   left: ${props => props.isOpen ? '0' : '-400px'};
   z-index: 99999;
   transition: left 0.3s;
+  min-height: 100vh;
 `;
 
 export const OpenIcon = styled(StyledIcon)`
@@ -300,4 +306,100 @@ export const SideBarMask = styled.div`
   z-index: 99997;
   cursor: pointer;
   display: ${props => props.isShowMask ? 'block' : 'none'};
+`;
+
+export const SidebarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 25px;
+  min-height: 100vh;
+  overflow-y: scroll;
+`;
+
+export const AuthContainer = styled.div`
+  width: 90%;
+  background-color: var(--white-49);
+  min-height: 200px;
+  box-sizing: border-box;
+  margin-top: 30px;
+  padding: 21px 22px;
+`;
+
+export const AuthContainerTitle = styled.p`
+  font-size: 34px;
+  font-weight: 300;
+  color: var(--iris);
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px;
+`;
+
+export const FormControl = styled.div`
+  :not(:nth-child(1)) {
+    margin-top: 25px;
+  }
+`;
+
+export const FormInput = styled.input`
+  width: 100%;
+  height: 40px;
+  background-color: var(--pale-grey);
+  padding: 16px;
+  box-sizing: border-box;
+  border: 0;
+  font-size: 20px;
+
+  :active, :focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    color: var(--cool-grey);
+    font-weight: 300;
+  }
+`;
+
+export const FormSwitch = styled.div`
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  text-align: center;
+  text-decoration: none;
+  color: var(--iris);
+  font-weight: 300;
+  font-size: 12px;
+  cursor: pointer;
+`;
+
+export const FormAction = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const FormButton = styled.button`
+  background-color: var(--iris);
+  color: var(--white);
+  width: 85px;
+  height: 31px;
+  border-radius: 4px;
+  border: 0;
+  transition: .4s transform;
+  cursor: pointer;
+  font-size: 15px;
+
+  :hover {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  :active {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
 `;
