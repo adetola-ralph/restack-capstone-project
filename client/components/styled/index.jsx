@@ -438,7 +438,7 @@ export const ModalContainer = styled.div`
   justify-content: center;
   position: fixed;
   z-index: 999998;
-`
+`;
 
 export const Modal = styled.div`
   width: 400px;
@@ -446,7 +446,8 @@ export const Modal = styled.div`
   min-height: 200px;
   padding: 21px 22px;
   z-index: 999999;
-`
+`;
+
 export const InstructionHeader = styled(AuthContainerTitle)`
   font-size: 14px;
   margin-bottom: 0;

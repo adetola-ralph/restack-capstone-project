@@ -25,6 +25,9 @@
         "some": [ "nesting", "id"  ]
       }
     }],
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "no-underscore-dangle": "off",
+    "func-names": ["error", "as-needed", { "generators": "never" }],
+    "react/jsx-one-expression-per-line": ["off"]
   }
 }

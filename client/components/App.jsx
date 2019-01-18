@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Fragment } from 'react';
 
@@ -48,24 +49,30 @@ const App = ({
   registrationAction,
   setRegisterFormField,
   openAddCategoryModal,
-}) => {
-  return(
-    <Fragment>
-      <GlobalStyle />
-      <AddEditCategory />
-      <SidebarComponent>
-        <SidebarContainer>
-          {
-            isAuthenticated &&
+}) => (
+  <Fragment>
+    <GlobalStyle />
+    <AddEditCategory />
+    <SidebarComponent>
+      <SidebarContainer>
+        {
+          isAuthenticated
+          && (
             <Fragment>
-              <Avatar size="200px"></Avatar>
-              <AuthUserName>Hello { `${user.firstname} ${user.lastname}`}!</AuthUserName>
+              <Avatar size="200px" />
+              <AuthUserName>
+                Hello
+                { `${user.firstname} ${user.lastname}`}
+                !
+              </AuthUserName>
               <LogoutButton width="85%" onClick={logout}>Logout</LogoutButton>
             </Fragment>
-          }
-          {
-            isLoginForm &&
-            !isAuthenticated &&
+          )
+        }
+        {
+          isLoginForm
+          && !isAuthenticated
+          && (
             <LoginComponent
               loginForm={loginForm}
               loginError={loginError}
@@ -74,10 +81,12 @@ const App = ({
               toggleAuthForm={toggleAuthForm}
               onFieldChange={setLoginFormField}
             />
-          }
-          {
-            isRegisterForm &&
-            !isAuthenticated &&
+          )
+        }
+        {
+          isRegisterForm
+          && !isAuthenticated
+          && (
             <RegisterComponent
               registerForm={registerForm}
               authError={authError}
@@ -86,32 +95,87 @@ const App = ({
               onFieldChange={setRegisterFormField}
               registerError={registerError}
             />
-          }
-        </SidebarContainer>
-      </SidebarComponent>
-      <Header>
-        <Container>
-          <Brand>a cheat sheet</Brand>
-        </Container>
-      </Header>
-      <TitleHeader>
-        <h1>
-          Git <em>cheatsheet</em>
-        </h1>
-      </TitleHeader>
-      <BodyComponent />
-      {
-        isAuthenticated &&
+          )
+        }
+      </SidebarContainer>
+    </SidebarComponent>
+    <Header>
+      <Container>
+        <Brand>a cheat sheet</Brand>
+      </Container>
+    </Header>
+    <TitleHeader>
+      <h1>
+        Git <em>cheatsheet</em>
+      </h1>
+    </TitleHeader>
+    <BodyComponent />
+    {
+      isAuthenticated
+      && (
         <AddButton onClick={openAddCategoryModal}>
-          <i className="fas fa-plus"></i>
+          <i className="fas fa-plus" />
         </AddButton>
-      }
-    </Fragment>
-  );
+      )
+    }
+  </Fragment>
+);
+
+App.propTypes = {
+  user: PropTypes.shape({
+    _id: PropTypes.string,
+    firstname: PropTypes.string,
+    lastname: PropTypes.string,
+    email: PropTypes.string,
+    __v: PropTypes.number,
+  }).isRequired,
+  logout: PropTypes.func.isRequired,
+  loginForm: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
+  authError: PropTypes.string.isRequired,
+  loginError: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
+  isLoginForm: PropTypes.bool.isRequired,
+  loginAction: PropTypes.func.isRequired,
+  registerForm: PropTypes.shape({
+    firstname: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    confirmpassword: PropTypes.string.isRequired,
+  }).isRequired,
+  registerError: PropTypes.shape({
+    firstname: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    confirmpassword: PropTypes.string.isRequired,
+  }).isRequired,
+  toggleAuthForm: PropTypes.func.isRequired,
+  isRegisterForm: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  setLoginFormField: PropTypes.func.isRequired,
+  registrationAction: PropTypes.func.isRequired,
+  setRegisterFormField: PropTypes.func.isRequired,
+  openAddCategoryModal: PropTypes.func.isRequired,
 };
 
 export const mapStateToProps = ({ auth }) => {
-  const { isAuthenticated, isLoginForm, isRegisterForm, user, loginForm, registerForm, loginError, registerError, authError } = auth;
+  const {
+    isAuthenticated,
+    isLoginForm,
+    isRegisterForm,
+    user,
+    loginForm,
+    registerForm,
+    loginError,
+    registerError,
+    authError,
+  } = auth;
 
   return {
     user,
@@ -126,16 +190,14 @@ export const mapStateToProps = ({ auth }) => {
   };
 };
 
-export const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => dispatch(logout()),
-    loginAction: () => dispatch(loginAction()),
-    registrationAction: () => dispatch(registrationAction()),
-    openAddCategoryModal: () => dispatch(openAddCategoryModal()),
-    toggleAuthForm: () => dispatch(toggleAuthForm()),
-    setLoginFormField: (field, value) => dispatch(setLoginFormField(field, value)),
-    setRegisterFormField: (field, value) => dispatch(setRegisterFormField(field, value)),
-  }
-};
+export const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout()),
+  loginAction: () => dispatch(loginAction()),
+  registrationAction: () => dispatch(registrationAction()),
+  openAddCategoryModal: () => dispatch(openAddCategoryModal()),
+  toggleAuthForm: () => dispatch(toggleAuthForm()),
+  setLoginFormField: (field, value) => dispatch(setLoginFormField(field, value)),
+  setRegisterFormField: (field, value) => dispatch(setRegisterFormField(field, value)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

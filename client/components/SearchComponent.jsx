@@ -2,24 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Search, SearchInput, SearchIcon, SearchLabel } from './styled';
+import {
+  Search,
+  SearchInput,
+  SearchIcon,
+  SearchLabel,
+} from './styled';
 
 import { searchWithValue } from '../store/actions/searchActions';
 
-const SearchComponent = ({ onChange, searchValue }) => {
-  return (
-    <Search>
-      <SearchLabel>
-      <SearchInput placeholder="Search..." value={searchValue} onChange={(e) => onChange(e.target.value)} />
-        <SearchIcon />
-      </SearchLabel>
-    </Search>
-  );
-};
+const SearchComponent = ({ onChange, searchValue }) => (
+  <Search>
+    <SearchLabel>
+      <SearchInput placeholder="Search..." value={searchValue} onChange={e => onChange(e.target.value)} />
+      <SearchIcon />
+    </SearchLabel>
+  </Search>
+);
 
 SearchComponent.propTypes = {
   onChange: PropTypes.func.isRequired,
   searchValue: PropTypes.string,
+};
+
+SearchComponent.defaultProps = {
+  searchValue: '',
 };
 
 const mapStateToProps = ({ search }) => {
@@ -29,10 +36,8 @@ const mapStateToProps = ({ search }) => {
   };
 };
 
-const  mapDispatchToProps = (dispatch) => {
-  return {
-    onChange: (value) => dispatch(searchWithValue(value)),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onChange: value => dispatch(searchWithValue(value)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchComponent);

@@ -1,12 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { AuthContainer, AuthContainerTitle, FormControl, FormInput, FormSwitch, FormButton, FormAction, ErrorMessage } from './styled';
+import {
+  AuthContainer,
+  AuthContainerTitle,
+  FormControl,
+  FormInput,
+  FormSwitch,
+  FormButton,
+  FormAction,
+  ErrorMessage,
+} from './styled';
 
-const RegisterComponent = ({ toggleAuthForm, registerForm, onFieldChange, registrationAction, registerError, authError }) => {
+const RegisterComponent = ({
+  toggleAuthForm,
+  registerForm,
+  onFieldChange,
+  registrationAction,
+  registerError,
+  authError,
+}) => {
   const onSubmit = (e) => {
     e.preventDefault();
-    registrationAction()
+    registrationAction();
   };
 
   return (
@@ -24,7 +40,7 @@ const RegisterComponent = ({ toggleAuthForm, registerForm, onFieldChange, regist
             autoComplete="off"
             value={registerForm.firstname}
             hasError={!!registerError.firstname}
-            onChange={(e) => onFieldChange(e.target.name, e.target.value)}
+            onChange={e => onFieldChange(e.target.name, e.target.value)}
           />
           {registerError.firstname && <ErrorMessage>{ registerError.firstname }</ErrorMessage>}
         </FormControl>
@@ -36,7 +52,7 @@ const RegisterComponent = ({ toggleAuthForm, registerForm, onFieldChange, regist
             autoComplete="off"
             value={registerForm.lastname}
             hasError={!!registerError.lastname}
-            onChange={(e) => onFieldChange(e.target.name, e.target.value)}
+            onChange={e => onFieldChange(e.target.name, e.target.value)}
           />
           {registerError.lastname && <ErrorMessage>{ registerError.lastname }</ErrorMessage>}
         </FormControl>
@@ -48,7 +64,7 @@ const RegisterComponent = ({ toggleAuthForm, registerForm, onFieldChange, regist
             autoComplete="off"
             value={registerForm.email}
             hasError={!!registerError.email}
-            onChange={(e) => onFieldChange(e.target.name, e.target.value)}
+            onChange={e => onFieldChange(e.target.name, e.target.value)}
           />
           {registerError.email && <ErrorMessage>{ registerError.email }</ErrorMessage>}
         </FormControl>
@@ -59,7 +75,7 @@ const RegisterComponent = ({ toggleAuthForm, registerForm, onFieldChange, regist
             placeholder="Password"
             value={registerForm.password}
             hasError={!!registerError.password}
-            onChange={(e) => onFieldChange(e.target.name, e.target.value)}
+            onChange={e => onFieldChange(e.target.name, e.target.value)}
           />
           {registerError.password && <ErrorMessage>{ registerError.password }</ErrorMessage>}
         </FormControl>
@@ -70,9 +86,16 @@ const RegisterComponent = ({ toggleAuthForm, registerForm, onFieldChange, regist
             placeholder="Confirm Password"
             value={registerForm.confirmpassword}
             hasError={!!registerError.confirmpassword}
-            onChange={(e) => onFieldChange(e.target.name, e.target.value)}
+            onChange={e => onFieldChange(e.target.name, e.target.value)}
           />
-          {registerError.confirmpassword && <ErrorMessage>{ registerError.confirmpassword }</ErrorMessage>}
+          {
+            registerError.confirmpassword
+            && (
+              <ErrorMessage>
+                { registerError.confirmpassword }
+              </ErrorMessage>
+            )
+          }
         </FormControl>
         <FormAction>
           <FormButton type="submit">
@@ -104,8 +127,8 @@ RegisterComponent.propTypes = {
     email: PropTypes.string,
     password: PropTypes.string,
     confirmpassword: PropTypes.string,
-  }),
-  authError: PropTypes.string,
+  }).isRequired,
+  authError: PropTypes.string.isRequired,
 };
 
 export default RegisterComponent;

@@ -17,28 +17,38 @@ class SidebarComponent extends Component {
   toggleSidebar(value) {
     const { showSidebar } = this.state;
     this.setState({
-      showSidebar: value ? value : !showSidebar,
+      showSidebar: value || !showSidebar,
     });
   }
 
   render() {
+    const { showSidebar } = this.state;
+    const { children } = this.props;
     return (
       <Fragment>
-        <SideBar isOpen={this.state.showSidebar}>
-          {!this.state.showSidebar && <OpenIcon
-            className="fas fa-chevron-right"
-            font-size="12px" onClick={this.toggleSidebar} />}
-          {this.props.children}
+        <SideBar isOpen={showSidebar}>
+          {
+            !showSidebar
+            && (
+              <OpenIcon
+                className="fas fa-chevron-right"
+                font-size="12px"
+                onClick={this.toggleSidebar}
+              />
+            )
+          }
+          {children}
         </SideBar>
         <Mask
-          isShowMask={this.state.showSidebar}
-          onClick={() => this.toggleSidebar(false)}/>
+          isShowMask={showSidebar}
+          onClick={() => this.toggleSidebar(false)}
+        />
       </Fragment>
     );
   }
 }
 SidebarComponent.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default SidebarComponent;

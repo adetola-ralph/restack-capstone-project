@@ -16,7 +16,18 @@ import {
   CategoryHeaderActionsIcons,
 } from './styled';
 
-const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruction, closeCategoryModal, setInstructionField, setCategoryTitleField, addCategory, editCategory }) => {
+const CategoryModal = ({
+  isOpen,
+  isNew,
+  category,
+  addInstruction,
+  removeInstruction,
+  closeCategoryModal,
+  setInstructionField,
+  setCategoryTitleField,
+  addCategory,
+  editCategory,
+}) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -29,8 +40,8 @@ const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruct
   return (
     <Fragment>
       {
-        isOpen &&
-        (
+        isOpen
+        && (
           <Fragment>
             <ModalContainer>
               <Mask isShowMask={isOpen} onClick={closeCategoryModal} />
@@ -43,16 +54,18 @@ const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruct
                 <form onSubmit={onSubmit}>
                   <FormControl>
                     <FormInput
-                      onChange={(e) => setCategoryTitleField(e.target.value)}
+                      onChange={e => setCategoryTitleField(e.target.value)}
                       name="title"
                       placeholder="Category Title"
                       value={category.title}
                     />
                   </FormControl>
-                  <AddInstructionAnchor onClick={addInstruction}>+ Add Instructions</AddInstructionAnchor>
+                  <AddInstructionAnchor onClick={addInstruction}>
+                    + Add Instructions
+                  </AddInstructionAnchor>
                   {
-                    category.instructions &&
-                    category.instructions.map((instruction, index) => (
+                    category.instructions
+                    && category.instructions.map((instruction, index) => (
                       <Fragment key={instruction._id || index}>
                         <InstructionHeader>
                           Remove instruction
@@ -68,7 +81,9 @@ const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruct
                             name="title"
                             placeholder="Instruction Title"
                             value={instruction.title}
-                            onChange={(e) => setInstructionField(index, e.target.name, e.target.value)}
+                            onChange={e => setInstructionField(
+                              index, e.target.name, e.target.value,
+                            )}
                           />
                         </InstructionFormControl>
                         <InstructionFormControl>
@@ -76,7 +91,9 @@ const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruct
                             name="command"
                             placeholder="Instruction Command"
                             value={instruction.command}
-                            onChange={(e) => setInstructionField(index, e.target.name, e.target.value)}
+                            onChange={e => setInstructionField(
+                              index, e.target.name, e.target.value,
+                            )}
                           />
                         </InstructionFormControl>
                       </Fragment>
@@ -108,9 +125,9 @@ CategoryModal.propTypes = {
         _id: PropTypes.string,
         title: PropTypes.string,
         command: PropTypes.string,
-      })
+      }),
     ),
-  }),
+  }).isRequired,
   addInstruction: PropTypes.func.isRequired,
   removeInstruction: PropTypes.func.isRequired,
   closeCategoryModal: PropTypes.func.isRequired,

@@ -2,7 +2,7 @@ import lunr from 'lunr';
 
 class SearchService {
   constructor() {
-    this.index;
+    this.index = null;
     this.init = this.init.bind(this);
     this.search = this.search.bind(this);
   }

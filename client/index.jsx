@@ -14,11 +14,12 @@ import configureStore from './store';
 const store = configureStore();
 store.dispatch(loadCategory());
 
-const renderApp = (_App) => {
+const renderApp = (AppComponent) => {
   render(
     <Provider store={store}>
-      <_App />
-    </Provider>, document.querySelector('#app'));
+      <AppComponent />
+    </Provider>, document.querySelector('#app'),
+  );
 };
 
 if (module.hot) {

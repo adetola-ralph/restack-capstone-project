@@ -1,38 +1,33 @@
-import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React from 'react';
 
 import { CategoriesCollection } from './styled';
 import CategoryItemComponent from './CategoryItemComponent';
 
 import { deleteCategoryAction } from '../store/actions/categoryActions';
-import { openEditCategoryModal } from '../store/actions/addEditCategoryAction';
+import { openEditCategoryModal as openEditCategoryModalAction } from '../store/actions/addEditCategoryAction';
 
-class CategoryCollectionComponent extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { categoryItems, isAuthenticated, deleteCategory, openEditCategoryModal } = this.props;
-
-    return (
-      <CategoriesCollection>
-        {
-          categoryItems.map(categoryItem => (
-            <CategoryItemComponent
-              category={categoryItem}
-              key={categoryItem._id}
-              deleteCategory={deleteCategory}
-              editCategory={openEditCategoryModal}
-              isAuthenticated={isAuthenticated} />
-          ))
-        }
-      </CategoriesCollection>
-    );
-  }
-}
+const CategoryCollectionComponent = ({
+  categoryItems,
+  isAuthenticated,
+  deleteCategory,
+  openEditCategoryModal,
+}) => (
+  <CategoriesCollection>
+    {
+      categoryItems.map(categoryItem => (
+        <CategoryItemComponent
+          category={categoryItem}
+          key={categoryItem._id}
+          deleteCategory={deleteCategory}
+          editCategory={openEditCategoryModal}
+          isAuthenticated={isAuthenticated}
+        />
+      ))
+    }
+  </CategoriesCollection>
+);
 
 CategoryCollectionComponent.propTypes = {
   categoryItems: PropTypes.arrayOf(
@@ -44,12 +39,13 @@ CategoryCollectionComponent.propTypes = {
           _id: PropTypes.string.isRequired,
           title: PropTypes.string.isRequired,
           command: PropTypes.string.isRequired,
-        })
+        }),
       ),
-    })
-  ),
+    }),
+  ).isRequired,
   deleteCategory: PropTypes.func.isRequired,
   openEditCategoryModal: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ categoryItems, search, auth }) => {
@@ -58,13 +54,12 @@ const mapStateToProps = ({ categoryItems, search, auth }) => {
   const { isAuthenticated } = auth;
 
   if (searchValue) {
-    filteredCategoryItems = categoryItems.filter(item =>  searchIndexResult.includes(item._id))
-      // the arrangement of some the results are wrong
-      // .sort((a, b) => {
-      //   return searchIndexResult.indexOf(a._id) - searchIndexResult.indexOf(b._id);
-      // });
+    filteredCategoryItems = categoryItems.filter(item => searchIndexResult.includes(item._id));
+    // the arrangement of some the results are wrong
+    // .sort((a, b) => {
+    //   return searchIndexResult.indexOf(a._id) - searchIndexResult.indexOf(b._id);
+    // });
   }
-
 
   return {
     categoryItems: filteredCategoryItems || categoryItems,
@@ -72,9 +67,9 @@ const mapStateToProps = ({ categoryItems, search, auth }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   deleteCategory: categoryId => dispatch(deleteCategoryAction(categoryId)),
-  openEditCategoryModal: categoryId => dispatch(openEditCategoryModal(categoryId)),
+  openEditCategoryModal: categoryId => dispatch(openEditCategoryModalAction(categoryId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryCollectionComponent);
