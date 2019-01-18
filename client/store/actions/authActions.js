@@ -39,7 +39,7 @@ const loginFormErrorMessages = {
   required: '{{ field }} is required',
   'email.email': 'Please enter a valid email',
   'password.min': 'Password must be more than 6 characters',
-}
+};
 
 const registerFormRules = {
   firstname: 'required',
@@ -51,25 +51,25 @@ const registerFormRules = {
 
 const registraterFormErrorMessages = {
   ...loginFormErrorMessages,
-  same: 'confirmpassword must be the same as password'
-}
+  same: 'confirmpassword must be the same as password',
+};
 
-export const loginFormError = (errors) => ({
+export const loginFormError = errors => ({
   type: LOGIN_ERROR,
   errors,
 });
 
-export const succesfulLogin = (authObject) => ({
+export const succesfulLogin = authObject => ({
   type: SUCCESSFUL_LOGIN,
   authObject,
 });
 
-export const failedLogin = (message) => ({
+export const failedLogin = message => ({
   type: FAILED_LOGIN,
   message,
 });
 
-export const failedRegister = (message) => ({
+export const failedRegister = message => ({
   type: FAILED_REGISTRATION,
   message,
 });
@@ -93,12 +93,12 @@ export const loginAction = () => async (dispatch, getState) => {
   }
 };
 
-export const registrationFormError = (errors) => ({
+export const registrationFormError = errors => ({
   type: REGISTRATION_ERROR,
   errors,
 });
 
-export const succesfulRegistration = (authObject) => ({
+export const succesfulRegistration = authObject => ({
   type: SUCCESSFUL_REGISTRATION,
   authObject,
 });
@@ -107,7 +107,9 @@ export const registrationAction = () => async (dispatch, getState) => {
   const { auth } = getState();
 
   try {
-    await indicative.validateAll(auth.registerForm, registerFormRules, registraterFormErrorMessages);
+    await indicative.validateAll(
+      auth.registerForm, registerFormRules, registraterFormErrorMessages,
+    );
   } catch (err) {
     console.log(err);
     return dispatch(registrationFormError(err));

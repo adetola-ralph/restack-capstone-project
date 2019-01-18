@@ -5,27 +5,31 @@ import {
   REMOVE_INSTRUCTION,
   CLOSE_CATEGORY_MODAL,
   SET_INSTRUCTION_FIELD,
+  EDIT_CATEGORY_FAILURE,
   OPEN_ADD_CATEGORY_MODAL,
   OPEN_EDIT_CATEGORY_MODAL,
   SET_CATEGORY_TITLE_FIELD,
+  ADD_NEW_CATEGORY_FAILURE,
   EDIT_CATEGORY_SUCCESSFUL,
   ADD_NEW_CATEGORY_SUCCESSFUL,
 } from '../constants';
+
+import { logout } from './authActions';
 
 export const addInstruction = () => ({
   type: ADD_INSTRUCTION,
 });
 
-export const removeInstruction = (index) => ({
+export const removeInstruction = index => ({
   type: REMOVE_INSTRUCTION,
-  index
+  index,
 });
 
 export const openAddCategoryModal = () => ({
   type: OPEN_ADD_CATEGORY_MODAL,
 });
 
-export const openEditCategoryModal = (categoryId) => (dispatch, getState) => {
+export const openEditCategoryModal = categoryId => (dispatch, getState) => {
   const state = getState();
   const categoryItem = state.categoryItems.find(item => item._id === categoryId);
   dispatch({
@@ -45,9 +49,27 @@ export const setInstructionField = (index, field, value) => ({
   index,
 });
 
-export const setCategoryTitleField = (value) => ({
+export const setCategoryTitleField = value => ({
   type: SET_CATEGORY_TITLE_FIELD,
   value,
+});
+
+export const addNewCategorySuccessful = category => ({
+  type: ADD_NEW_CATEGORY_SUCCESSFUL,
+  category,
+});
+
+export const editCategorySuccessful = category => ({
+  type: EDIT_CATEGORY_SUCCESSFUL,
+  category,
+});
+
+export const addNewCategoryFailure = () => ({
+  type: ADD_NEW_CATEGORY_FAILURE,
+});
+
+export const editCategoryFailure = () => ({
+  type: EDIT_CATEGORY_FAILURE,
 });
 
 export const addCategory = () => async (dispatch, getState) => {
@@ -85,13 +107,3 @@ export const editCategory = () => async (dispatch, getState) => {
     console.log(error);
   }
 };
-
-export const addNewCategorySuccessful = (category) => ({
-  type: ADD_NEW_CATEGORY_SUCCESSFUL,
-  category
-});
-
-export const editCategorySuccessful = (category) => ({
-  type: EDIT_CATEGORY_SUCCESSFUL,
-  category
-});

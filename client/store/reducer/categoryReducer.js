@@ -2,7 +2,7 @@ import {
   LOAD_CATEGORY_SUCCESS,
   DELETE_CATEGORY,
   ADD_NEW_CATEGORY_SUCCESSFUL,
-  EDIT_CATEGORY_SUCCESSFUL
+  EDIT_CATEGORY_SUCCESSFUL,
 } from '../constants';
 
 const categoryReducer = (state = [], action) => {
@@ -20,7 +20,7 @@ const categoryReducer = (state = [], action) => {
       ];
     }
     case (EDIT_CATEGORY_SUCCESSFUL): {
-      return state.map(item => {
+      return state.map((item) => {
         if (item._id === action.category._id) {
           return action.category;
         }

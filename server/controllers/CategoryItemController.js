@@ -3,7 +3,7 @@ import Boom from 'boom';
 import CategoryitemModel from '../model/Category';
 
 class CategoryItemController {
-  static *find(categoryItemId) {
+  static* find(categoryItemId) {
     const item = yield CategoryitemModel.findById(categoryItemId);
 
     if (!item) {
@@ -13,12 +13,12 @@ class CategoryItemController {
     return item;
   }
 
-  static *getAll() {
+  static* getAll() {
     const items = yield CategoryitemModel.find().exec();
     return items.map(item => item.toObject());
   }
 
-  static *create(categoryItem) {
+  static* create(categoryItem) {
     if (!categoryItem.title) {
       throw Boom.badData('Title is missing');
     }
@@ -28,14 +28,12 @@ class CategoryItemController {
 
     if (instructions && instructions.length > 0) {
       // check if all instructions are valid
-      const isValidInstruction = instructions.every((instruction) => {
-        return (
-          instruction.title &&
-          instruction.title !== '' &&
-          instruction.command &&
-          instruction.command !== ''
-        );
-      });
+      const isValidInstruction = instructions.every(instruction => (
+        instruction.title
+          && instruction.title !== ''
+          && instruction.command
+          && instruction.command !== ''
+      ));
 
       if (!isValidInstruction) {
         throw Boom.badData('Wrong format for instructions');
@@ -45,7 +43,7 @@ class CategoryItemController {
     return yield newCategoryItem.save();
   }
 
-  static *update(categoryItemId, categoryItem) {
+  static* update(categoryItemId, categoryItem) {
     const categoryItemToUpdate = yield CategoryItemController.find(categoryItemId);
 
     if (!categoryItemToUpdate) {
@@ -62,7 +60,7 @@ class CategoryItemController {
     return yield categoryItemToUpdate.save();
   }
 
-  static *delete(categoryItemId) {
+  static* delete(categoryItemId) {
     const categoryItemToDelete = yield CategoryItemController.find(categoryItemId);
 
     if (!categoryItemToDelete) {
@@ -70,7 +68,6 @@ class CategoryItemController {
     }
 
     yield categoryItemToDelete.remove();
-    return;
   }
 }
 

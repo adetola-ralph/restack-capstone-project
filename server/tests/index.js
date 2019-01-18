@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import mongoose from 'mongoose';
 import supertest from 'supertest';
 
-import app, { db } from '../';
+import app, { db } from '..';
 import { CategoryItemController } from '../controllers';
 import CategoryItemModel from '../model/Category';
 
@@ -11,7 +11,7 @@ const { expect } = chai;
 const api = supertest.agent(app);
 let testCategoryItem;
 let token;
-let testRegisteredUser
+let testRegisteredUser;
 
 let registereduser;
 const validUser = {
@@ -22,7 +22,7 @@ const validUser = {
 const nonExistentUser = {
   email: 'non@oreofe.me',
   password: 'password',
-}
+};
 
 describe('Integration Tests', () => {
   describe('Category Item', () => {
@@ -42,14 +42,13 @@ describe('Integration Tests', () => {
         });
 
       token = res.body.token;
-      testRegisteredUser = res.body.user;
     });
 
     it('should return a list of Category items with an array of instructions', async () => {
       const res = await api.get('/api/categoryItems').expect(200);
 
       expect(res.body).to.not.be.empty;
-      expect(res.body).to.be.an('array')
+      expect(res.body).to.be.an('array');
       expect(res.body).to.have.lengthOf(1);
     });
 
@@ -119,13 +118,13 @@ describe('Integration Tests', () => {
     });
 
     it('return 404 for non existent category item', async () => {
-      const objectId = new mongoose.Types.ObjectId;
+      const objectId = new mongoose.Types.ObjectId();
       const res = await api.get(`/api/categoryItems/${objectId}`).expect(404);
 
       expect(res.body.message).to.eql('Category item not found');
     });
 
-    it('should be able to update existing category item', async ()=> {
+    it('should be able to update existing category item', async () => {
       const res = await api.patch(`/api/categoryItems/${testCategoryItem._id}`)
         .set('x-access-token', token)
         .send({
@@ -136,8 +135,8 @@ describe('Integration Tests', () => {
       expect(res.body).to.eql({ ...testCategoryItem, title: 'Something else' });
     });
 
-    it('should throw an error if category is non existing (update)', async ()=> {
-      const objectId = new mongoose.Types.ObjectId;
+    it('should throw an error if category is non existing (update)', async () => {
+      const objectId = new mongoose.Types.ObjectId();
       const res = await api.patch(`/api/categoryItems/${objectId}`)
         .set('x-access-token', token)
         .send({
@@ -179,7 +178,7 @@ describe('Integration Tests', () => {
 
       it('should register a user and send a jwt token', async () => {
         const result = await api.post('/api/auth/register')
-          .send({ ...validUser, firstname: 'Oreofe', lastname: 'Olutola'})
+          .send({ ...validUser, firstname: 'Oreofe', lastname: 'Olutola' })
           .expect(200);
 
         registereduser = result.body;
@@ -190,7 +189,7 @@ describe('Integration Tests', () => {
 
       it('should return 409 for an existing email', async () => {
         const result = await api.post('/api/auth/register')
-          .send({ ...validUser, firstname: 'Ife', lastname: 'Olutola'})
+          .send({ ...validUser, firstname: 'Ife', lastname: 'Olutola' })
           .expect(409);
 
         const { message } = result.body;
@@ -238,12 +237,12 @@ describe('Integration Tests', () => {
 
   describe('error handling', () => {
     before(() => {
-      const stub = sinon.stub(CategoryItemController, 'getAll')
+      const stub = sinon.stub(CategoryItemController, 'getAll');
       stub.throws('This is an error');
     });
 
     it('should return 500 on event of an error', async () => {
-      const res = await api.get('/api/categoryItems').expect(500);
+      await api.get('/api/categoryItems').expect(500);
     });
 
     after(() => {

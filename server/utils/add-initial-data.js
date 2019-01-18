@@ -2,6 +2,8 @@ import path from 'path';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
+import CategoryItemModel from '../model/Category';
+
 if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'staging') {
   dotenv.config({
     silent: true,
@@ -9,8 +11,6 @@ if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'staging')
     path: path.join(__dirname, '../../.env'),
   });
 }
-
-import CategoryItemModel from '../model/Category';
 
 const mockData = [
   {
@@ -108,7 +108,7 @@ const mockData = [
   },
 ];
 
-export const insertCateoryItems = (_mockData) => {
+const insertCateoryItems = (_mockData) => {
   const dbUrl = process.env.MONGODB_URI;
   mongoose.connect(dbUrl, { useNewUrlParser: true });
   const db = mongoose.connection;
@@ -125,5 +125,7 @@ export const insertCateoryItems = (_mockData) => {
     });
   });
 };
+
+export default insertCateoryItems;
 
 insertCateoryItems(mockData);

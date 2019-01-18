@@ -30,12 +30,12 @@ const router = express.Router();
 const port = process.env.PORT || 1237;
 const dbUrl = process.env.MONGODB_URI;
 
-/***** DB Config *****/
+/** *** DB Config **** */
 mongoose.connect(dbUrl, { useNewUrlParser: true });
 
 // for testing purposes
 const db = mongoose.connection;
-/***** End of DB Config *****/
+/** *** End of DB Config **** */
 
 app.use(cors());
 
@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(morgan('dev'));
 
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
@@ -60,14 +60,14 @@ routes(router);
 app.use('/api', router);
 
 app.get(['/'], function* (req, res) {
-  let index = yield fs.readFile('./public/_index.html', 'utf-8');
+  const index = yield fs.readFile('./public/_index.html', 'utf-8');
 
   res.send(index);
 });
 
-/**** static html ****/
-app.use('/static', express.static("static-pages"));
-/**** end static html ****/
+/** ** static html *** */
+app.use('/static', express.static('static-pages'));
+/** ** end static html *** */
 
 // error handler
 app.use((err, req, res, next) => {

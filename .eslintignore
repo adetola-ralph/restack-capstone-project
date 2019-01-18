@@ -1,0 +1,8 @@
+node_modules/**/*
+webpack.*
+jest.config.js
+# **/*.spec.js
+/coverage
+/.nyc_output
+public
+static-pages

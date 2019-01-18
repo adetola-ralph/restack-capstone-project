@@ -9,7 +9,7 @@ const exp = process.env.TOKEN_EXP || '20m';
 
 
 class AuthController {
-  static *login({email, password}) {
+  static* login({ email, password }) {
     if (!email || !password) {
       throw Boom.badData('Missing fields');
     }
@@ -37,8 +37,10 @@ class AuthController {
     };
   }
 
-  static *register(user) {
-    const { firstname, lastname, email, password } = user;
+  static* register(user) {
+    const {
+      firstname, lastname, email, password,
+    } = user;
 
     // check all the fields are available
     if (!firstname || !lastname || !email || !password) {
@@ -52,7 +54,7 @@ class AuthController {
 
       throw Boom.badData(JSON.stringify({
         message: 'Missing field',
-        fields: missingFields
+        fields: missingFields,
       }));
     }
 

@@ -12,12 +12,12 @@ const UserSchema = new Schema({
   email: {
     type: String,
     lowercase: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-  }
+  },
 });
 
 // UserSchema.virtual('fullname').get(() => `${this.firstname} ${this.lastname}`);

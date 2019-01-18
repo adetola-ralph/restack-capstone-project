@@ -40,7 +40,7 @@ const defaultState = {
     confirmpassword: '',
   },
   authError: '',
-}
+};
 
 const authReducer = (state = defaultState, action) => {
   const { type } = action;
@@ -75,7 +75,7 @@ const authReducer = (state = defaultState, action) => {
           confirmpassword: '',
         },
         authError: '',
-      }
+      };
     }
     case (SET_LOGIN_FORM_FIELD): {
       const { field, value } = action;
@@ -85,7 +85,7 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         loginForm: {
           ...loginForm,
-          [field]: value
+          [field]: value,
         },
         loginError: {
           ...loginError,
@@ -102,7 +102,7 @@ const authReducer = (state = defaultState, action) => {
         ...state,
         registerForm: {
           ...registerForm,
-          [field]: value
+          [field]: value,
         },
         registerError: {
           ...registerError,
@@ -140,7 +140,7 @@ const authReducer = (state = defaultState, action) => {
       };
     }
     case (SUCCESSFUL_REGISTRATION): {
-      const { token, user } = action.authObject
+      const { token, user } = action.authObject;
 
       return {
         ...state,
@@ -170,10 +170,10 @@ const authReducer = (state = defaultState, action) => {
           confirmpassword: '',
         },
         authError: '',
-      }
+      };
     }
     case (SUCCESSFUL_LOGIN): {
-      const { token, user } = action.authObject
+      const { token, user } = action.authObject;
 
       return {
         ...state,
@@ -203,7 +203,7 @@ const authReducer = (state = defaultState, action) => {
           confirmpassword: '',
         },
         authError: '',
-      }
+      };
     }
     case (LOGOUT): {
       return defaultState;
@@ -213,7 +213,7 @@ const authReducer = (state = defaultState, action) => {
       return {
         ...state,
         authError: action.message,
-      }
+      };
     }
 
     default: {

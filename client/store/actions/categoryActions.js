@@ -1,6 +1,8 @@
 import Axios from 'axios';
 
-import { LOADING_CATEGORY, LOAD_CATEGORY_SUCCESS, LOAD_CATEGORY_FAILURE, EDIT_CATEGORY, DELETE_CATEGORY } from '../constants';
+import {
+  LOADING_CATEGORY, LOAD_CATEGORY_SUCCESS, LOAD_CATEGORY_FAILURE, EDIT_CATEGORY, DELETE_CATEGORY,
+} from '../constants';
 
 import { logout } from './authActions';
 
@@ -10,12 +12,12 @@ export const loadingCategory = () => ({
   type: LOADING_CATEGORY,
 });
 
-export const loadCategorySuccess = (categoryItems) => ({
+export const loadCategorySuccess = categoryItems => ({
   type: LOAD_CATEGORY_SUCCESS,
   categoryItems,
 });
 
-export const loadCategoryFailure = (error) => ({
+export const loadCategoryFailure = error => ({
   type: LOAD_CATEGORY_FAILURE,
   error,
 });
@@ -23,7 +25,7 @@ export const loadCategoryFailure = (error) => ({
 export const loadCategory = () => async (dispatch) => {
   dispatch(loadingCategory());
   try {
-    const result = await Axios.get('/api/categoryItems')
+    const result = await Axios.get('/api/categoryItems');
     const categoryItems = result.data;
     dispatch(loadCategorySuccess(categoryItems));
 
@@ -35,17 +37,17 @@ export const loadCategory = () => async (dispatch) => {
   }
 };
 
-export const editCategory = (categoryId) => ({
+export const editCategory = categoryId => ({
   type: EDIT_CATEGORY,
   categoryId,
 });
 
-export const deleteCategory = (categoryId) => ({
+export const deleteCategory = categoryId => ({
   type: DELETE_CATEGORY,
   categoryId,
 });
 
-export const deleteCategoryAction = (categoryId) => async (dispatch, getState) => {
+export const deleteCategoryAction = categoryId => async (dispatch, getState) => {
   const { auth } = getState();
   const { token } = auth;
 
@@ -60,9 +62,4 @@ export const deleteCategoryAction = (categoryId) => async (dispatch, getState) =
     const error = err.response || err.request;
     console.log(error);
   }
-
-};
-
-export const editCategoryAction = (categoryId) => (dispatch, getState) => {
-
 };

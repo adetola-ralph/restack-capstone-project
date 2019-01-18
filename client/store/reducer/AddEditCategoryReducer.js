@@ -10,9 +10,8 @@ import {
   ADD_NEW_CATEGORY_SUCCESSFUL,
 } from '../constants';
 
-import { sl } from 'react-redux';
 
-const instruction = () => ({
+const getNewInstruction = () => ({
   title: '',
   command: '',
 });
@@ -20,7 +19,7 @@ const instruction = () => ({
 const defaultState = {
   newCategory: {
     title: '',
-    instructions: [instruction()],
+    instructions: [getNewInstruction()],
   },
   isModalOpen: false,
   isNew: false,
@@ -37,9 +36,9 @@ const AddEditCategoryReducer = (state = defaultState, action) => {
           ...state.newCategory,
           instructions: [
             ...state.newCategory.instructions,
-            instruction(),
+            getNewInstruction(),
           ],
-        }
+        },
       };
     }
     case (REMOVE_INSTRUCTION): {
@@ -62,7 +61,6 @@ const AddEditCategoryReducer = (state = defaultState, action) => {
       };
     }
     case (OPEN_EDIT_CATEGORY_MODAL): {
-      console.log(state.categoryItems);
       return {
         ...state,
         newCategory: action.categoryItem,
