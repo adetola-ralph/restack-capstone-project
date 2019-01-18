@@ -313,7 +313,7 @@ export const SidebarContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 25px;
+  padding: 25px 15px;
   min-height: 100vh;
   overflow-y: scroll;
 `;
@@ -392,8 +392,8 @@ export const FormButton = styled.button`
   font-size: 15px;
 
   :hover {
-    -webkit-transform: scale(1.05);
-            transform: scale(1.05);
+    -webkit-transform: scale(1.01);
+            transform: scale(1.01);
   }
 
   :focus {
@@ -405,6 +405,20 @@ export const FormButton = styled.button`
             transform: scale(0.9);
   }
 `;
+
+export const LogoutButton = styled(FormButton)`
+  width: ${props => props.width || '100%'};
+  border: var(--iris) 2px solid;
+  background-color: transparent;
+  color: var(--iris);
+  background-image: none;
+`;
+
+export const AuthUserName = styled.p`
+  margin: 20px 0;
+  text-transform: capitalize;
+`;
+
 
 export const ErrorMessage = styled.p`
   text-align: center;

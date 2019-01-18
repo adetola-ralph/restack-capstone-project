@@ -23,6 +23,8 @@ import {
   Container,
   TitleHeader,
   GlobalStyle,
+  AuthUserName,
+  LogoutButton,
   SidebarContainer,
 } from './styled';
 
@@ -52,8 +54,8 @@ const App = ({
             isAuthenticated &&
             <Fragment>
               <Avatar size="200px"></Avatar>
-              <p style={{'marginTop': '20px', 'textTransform': 'capitalize'}}>Hello { `${user.firstname} ${user.lastname}`}!</p>
-              <p onClick={logout}>Logout</p>
+              <AuthUserName>Hello { `${user.firstname} ${user.lastname}`}!</AuthUserName>
+              <LogoutButton width="85%" onClick={logout}>Logout</LogoutButton>
             </Fragment>
           }
           {
