@@ -1,6 +1,8 @@
 import Axios from 'axios';
 
-import { LOADING_CATEGORY, LOAD_CATEGORY_SUCCESS, LOAD_CATEGORY_FAILURE } from '../constants';
+import { LOADING_CATEGORY, LOAD_CATEGORY_SUCCESS, LOAD_CATEGORY_FAILURE, EDIT_CATEGORY, DELETE_CATEGORY } from '../constants';
+
+import { logout } from './authActions';
 
 import SearchService from '../../service/search';
 
@@ -31,4 +33,36 @@ export const loadCategory = () => async (dispatch) => {
   } catch (err) {
     dispatch(loadCategoryFailure(err));
   }
+};
+
+export const editCategory = (categoryId) => ({
+  type: EDIT_CATEGORY,
+  categoryId,
+});
+
+export const deleteCategory = (categoryId) => ({
+  type: DELETE_CATEGORY,
+  categoryId,
+});
+
+export const deleteCategoryAction = (categoryId) => async (dispatch, getState) => {
+  const { auth } = getState();
+  const { token } = auth;
+
+  if (!token) {
+    return dispatch(logout());
+  }
+
+  try {
+    await Axios.delete(`/api/categoryItems/${categoryId}`, { headers: { 'x-access-token': token } });
+    dispatch(deleteCategory(categoryId));
+  } catch (err) {
+    const error = err.response || err.request;
+    console.log(error);
+  }
+
+};
+
+export const editCategoryAction = (categoryId) => (dispatch, getState) => {
+
 };

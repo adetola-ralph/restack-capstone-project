@@ -6,25 +6,33 @@ import React, { Component } from 'react';
 import { CategoriesCollection } from './styled';
 import CategoryItemComponent from './CategoryItemComponent';
 
+import { editCategoryAction, deleteCategoryAction } from '../store/actions/categoryActions';
+
 class CategoryCollectionComponent extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { categoryItems, isAuthenticated } = this.props;
+    const { categoryItems, isAuthenticated, deleteCategory, editCategory } = this.props;
 
     return (
       <CategoriesCollection>
         {
           categoryItems.map(categoryItem => (
-            <CategoryItemComponent category={categoryItem} key={categoryItem._id} isAuthenticated={isAuthenticated} />
+            <CategoryItemComponent
+              category={categoryItem}
+              key={categoryItem._id}
+              deleteCategory={deleteCategory}
+              editCategory={editCategory}
+              isAuthenticated={isAuthenticated} />
           ))
         }
       </CategoriesCollection>
     );
   }
 }
+
 CategoryCollectionComponent.propTypes = {
   categoryItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -39,6 +47,8 @@ CategoryCollectionComponent.propTypes = {
       ),
     })
   ),
+  deleteCategory: PropTypes.func.isRequired,
+  editCategory: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ categoryItems, search, auth }) => {
@@ -61,4 +71,9 @@ const mapStateToProps = ({ categoryItems, search, auth }) => {
   };
 };
 
-export default connect(mapStateToProps)(CategoryCollectionComponent);
+const mapDispatchToProps = (dispatch) => ({
+  deleteCategory: categoryId => dispatch(deleteCategoryAction(categoryId)),
+  editCategory: categoryId => dispatch(editCategoryAction(categoryId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryCollectionComponent);

@@ -7,7 +7,7 @@ import { Category, Instruction, CategoryHeaderActions, CategoryHeaderActionsIcon
 const clipboard = new Clipboard('.instruction-copy');
 clipboard.on('success', () => console.info('copied'));
 
-const CategoryItemComponent = ({ category, isAuthenticated }) => {
+const CategoryItemComponent = ({ category, isAuthenticated, deleteCategory, editCategory }) => {
   return (
     <Category>
       <header>
@@ -15,8 +15,8 @@ const CategoryItemComponent = ({ category, isAuthenticated }) => {
         {
           isAuthenticated &&
           <CategoryHeaderActions>
-            <CategoryHeaderActionsIcons className="far fa-clone" />
-            <CategoryHeaderActionsIcons className="fas fa-trash-alt" color="#f0533c" />
+            <CategoryHeaderActionsIcons className="far fa-clone" onClick={() => editCategory(category._id)} />
+            <CategoryHeaderActionsIcons className="fas fa-trash-alt" color="#f0533c" onClick={() => deleteCategory(category._id)} />
           </CategoryHeaderActions>
         }
       </header>
@@ -49,6 +49,8 @@ CategoryItemComponent.propTypes = {
       })
     ),
   }),
+  deleteCategory: PropTypes.func.isRequired,
+  editCategory: PropTypes.func.isRequired,
 };
 
 export default CategoryItemComponent;
