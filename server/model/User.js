@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const User = new Schema({
+const UserSchema = new Schema({
   firstname: {
     type: String,
     lowercase: true,
@@ -20,6 +20,6 @@ const User = new Schema({
   }
 });
 
-User.virtual('fullname').get(() => `${this.firstname} ${this.lastname}`);
+// UserSchema.virtual('fullname').get(() => `${this.firstname} ${this.lastname}`);
 
-export default model('User', User);
+export default model('UserModel', UserSchema);

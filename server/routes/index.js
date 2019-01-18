@@ -1,3 +1,4 @@
+import Authorization from '../middleware/authorization';
 import { CategoryItemController, AuthController } from '../controllers';
 
 const routes = (router) => {
@@ -6,7 +7,7 @@ const routes = (router) => {
       const categoryItems = yield CategoryItemController.getAll();
       res.json(categoryItems);
     })
-    .post(function* (req, res) {
+    .post(Authorization.checkAuthentication, function* (req, res) {
       const categoryItems = req.body;
       const newCategoryItem = yield CategoryItemController.create(categoryItems);
       res.status(201).json(newCategoryItem);
@@ -19,13 +20,13 @@ const routes = (router) => {
       const categoryItem = yield CategoryItemController.find(id);
       res.json(categoryItem);
     })
-    .patch(function* (req, res) {
+    .patch(Authorization.checkAuthentication, function* (req, res) {
       const { id } = req.params;
 
       const updateCategoryItem = yield CategoryItemController.update(id, req.body);
       res.json(updateCategoryItem);
     })
-    .delete(function* (req, res) {
+    .delete(Authorization.checkAuthentication, function* (req, res) {
       const { id } = req.params;
       yield CategoryItemController.delete(id);
       res.json({

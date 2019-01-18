@@ -10,6 +10,8 @@ import CategoryItemModel from '../model/Category';
 const { expect } = chai;
 const api = supertest.agent(app);
 let testCategoryItem;
+let token;
+let testRegisteredUser
 
 let registereduser;
 const validUser = {
@@ -30,6 +32,19 @@ describe('Integration Tests', () => {
       }).save();
     });
 
+    before(async () => {
+      const res = await api.post('/api/auth/register')
+        .send({
+          email: 'admin@test.site',
+          password: 'password',
+          firstname: 'Test',
+          lastname: 'User',
+        });
+
+      token = res.body.token;
+      testRegisteredUser = res.body.user;
+    });
+
     it('should return a list of Category items with an array of instructions', async () => {
       const res = await api.get('/api/categoryItems').expect(200);
 
@@ -40,6 +55,7 @@ describe('Integration Tests', () => {
 
     it('should create new category Items without instructions', async () => {
       const res = await api.post('/api/categoryItems')
+        .set('x-access-token', token)
         .send({ title: 'Checkout branches' })
         .expect(201);
 
@@ -51,6 +67,7 @@ describe('Integration Tests', () => {
 
     it('should (creation) fail if the sent an empty object', async () => {
       const res = await api.post('/api/categoryItems')
+        .set('x-access-token', token)
         .send({})
         .expect(422);
 
@@ -59,6 +76,7 @@ describe('Integration Tests', () => {
 
     it('should create new category Items with instructions', async () => {
       const res = await api.post('/api/categoryItems')
+        .set('x-access-token', token)
         .send({
           title: 'Checkout to the last branch',
           instructions: [{
@@ -81,6 +99,7 @@ describe('Integration Tests', () => {
 
     it('should (creation) fail if sent invalid instructions format', async () => {
       const res = await api.post('/api/categoryItems')
+        .set('x-access-token', token)
         .send({
           title: 'Checkout to the last branch',
           instructions: [{
@@ -108,6 +127,7 @@ describe('Integration Tests', () => {
 
     it('should be able to update existing category item', async ()=> {
       const res = await api.patch(`/api/categoryItems/${testCategoryItem._id}`)
+        .set('x-access-token', token)
         .send({
           title: 'Something else',
         })
@@ -119,6 +139,7 @@ describe('Integration Tests', () => {
     it('should throw an error if category is non existing (update)', async ()=> {
       const objectId = new mongoose.Types.ObjectId;
       const res = await api.patch(`/api/categoryItems/${objectId}`)
+        .set('x-access-token', token)
         .send({
           title: 'Something else',
         })
@@ -126,13 +147,17 @@ describe('Integration Tests', () => {
     });
 
     it('should be able to delete a category item', async () => {
-      const res = await api.delete(`/api/categoryItems/${testCategoryItem._id}`).expect(200);
+      const res = await api.delete(`/api/categoryItems/${testCategoryItem._id}`)
+        .set('x-access-token', token)
+        .expect(200);
 
       expect(res.body).to.haveOwnProperty('message', 'Item deleted');
     });
 
     it('should throw an error if category is non existing (delete)', async () => {
-      const res = await api.delete(`/api/categoryItems/${testCategoryItem._id}`).expect(404);
+      const res = await api.delete(`/api/categoryItems/${testCategoryItem._id}`)
+        .set('x-access-token', token)
+        .expect(404);
     });
   });
 

@@ -1,12 +1,11 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 
 import { Container, Body } from './styled';
 
 import SearchComponent from './SearchComponent';
 import CategoryCollectionComponent from './CategoryCollectionComponent';
 
-const BodyComponent = ({}) => {
+const BodyComponent = () => {
   return (
     <Body>
       <Container>
@@ -19,8 +18,5 @@ const BodyComponent = ({}) => {
     </Body>
   );
 };
-
-// BodyComponent.propTypes = {
-// };
 
 export default BodyComponent;
