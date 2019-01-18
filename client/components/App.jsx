@@ -16,7 +16,7 @@ import {
   setRegisterFormField,
 } from '../store/actions/authActions';
 
-import { openAddCategoryModal } from '../store/actions/AddEditCategoryAction';
+import { openAddCategoryModal } from '../store/actions/addEditCategoryAction';
 
 import {
   Brand,

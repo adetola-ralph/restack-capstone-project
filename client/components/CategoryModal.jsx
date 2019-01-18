@@ -16,9 +16,15 @@ import {
   CategoryHeaderActionsIcons,
 } from './styled';
 
-const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruction, closeCategoryModal }) => {
+const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruction, closeCategoryModal, setInstructionField, setCategoryTitleField, addCategory, editCategory }) => {
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    if (isNew) {
+      addCategory();
+    } else {
+      editCategory();
+    }
   };
   return (
     <Fragment>
@@ -36,7 +42,12 @@ const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruct
                 </AuthContainerTitle>
                 <form onSubmit={onSubmit}>
                   <FormControl>
-                    <FormInput placeholder="Category Title" value={category.title}/>
+                    <FormInput
+                      onChange={(e) => setCategoryTitleField(e.target.value)}
+                      name="title"
+                      placeholder="Category Title"
+                      value={category.title}
+                    />
                   </FormControl>
                   <AddInstructionAnchor onClick={addInstruction}>+ Add Instructions</AddInstructionAnchor>
                   {
@@ -53,10 +64,20 @@ const CategoryModal = ({ isOpen, isNew, category, addInstruction, removeInstruct
                           />
                         </InstructionHeader>
                         <InstructionFormControl>
-                          <FormInput placeholder="Instruction Title" value={instruction.title}/>
+                          <FormInput
+                            name="title"
+                            placeholder="Instruction Title"
+                            value={instruction.title}
+                            onChange={(e) => setInstructionField(index, e.target.name, e.target.value)}
+                          />
                         </InstructionFormControl>
                         <InstructionFormControl>
-                          <FormInput placeholder="Instruction Command" value={instruction.command}/>
+                          <FormInput
+                            name="command"
+                            placeholder="Instruction Command"
+                            value={instruction.command}
+                            onChange={(e) => setInstructionField(index, e.target.name, e.target.value)}
+                          />
                         </InstructionFormControl>
                       </Fragment>
                     ))
@@ -93,6 +114,10 @@ CategoryModal.propTypes = {
   addInstruction: PropTypes.func.isRequired,
   removeInstruction: PropTypes.func.isRequired,
   closeCategoryModal: PropTypes.func.isRequired,
+  setInstructionField: PropTypes.func.isRequired,
+  setCategoryTitleField: PropTypes.func.isRequired,
+  addCategory: PropTypes.func.isRequired,
+  editCategory: PropTypes.func.isRequired,
 };
 
 export default CategoryModal;

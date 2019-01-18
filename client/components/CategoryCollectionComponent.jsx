@@ -7,7 +7,7 @@ import { CategoriesCollection } from './styled';
 import CategoryItemComponent from './CategoryItemComponent';
 
 import { deleteCategoryAction } from '../store/actions/categoryActions';
-import { openEditCategoryModal } from '../store/actions/AddEditCategoryAction';
+import { openEditCategoryModal } from '../store/actions/addEditCategoryAction';
 
 class CategoryCollectionComponent extends Component {
   constructor(props) {

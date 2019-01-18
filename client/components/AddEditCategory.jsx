@@ -4,9 +4,17 @@ import { connect } from 'react-redux';
 
 import CategoryModal from './CategoryModal';
 
-import { addInstruction, removeInstruction, closeCategoryModal } from '../store/actions/AddEditCategoryAction';
+import {
+  addCategory,
+  editCategory,
+  addInstruction,
+  removeInstruction,
+  closeCategoryModal,
+  setInstructionField,
+  setCategoryTitleField,
+} from '../store/actions/addEditCategoryAction';
 
-const AddEditCategoryModal = ({ addInstruction, category, removeInstruction, isModalOpen, isNew, closeCategoryModal }) => {
+const AddEditCategoryModal = ({ addInstruction, category, removeInstruction, isModalOpen, isNew, closeCategoryModal, setInstructionField, setCategoryTitleField, addCategory, editCategory }) => {
   return (
     <CategoryModal
       isOpen={isModalOpen}
@@ -15,6 +23,10 @@ const AddEditCategoryModal = ({ addInstruction, category, removeInstruction, isM
       addInstruction={addInstruction}
       removeInstruction={removeInstruction}
       closeCategoryModal={closeCategoryModal}
+      setInstructionField={setInstructionField}
+      setCategoryTitleField={setCategoryTitleField}
+      addCategory={addCategory}
+      editCategory={editCategory}
     />
   );
 };
@@ -36,6 +48,10 @@ AddEditCategoryModal.propTypes = {
   }),
   isModalOpen: PropTypes.bool.isRequired,
   isNew: PropTypes.bool.isRequired,
+  setInstructionField: PropTypes.func.isRequired,
+  setCategoryTitleField: PropTypes.func.isRequired,
+  addCategory: PropTypes.func.isRequired,
+  editCategory: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ addEditCategory }) => {
@@ -51,6 +67,10 @@ const mapDispatchToProp = (dispatch) => ({
   addInstruction: () => dispatch(addInstruction()),
   removeInstruction: (index) => dispatch(removeInstruction(index)),
   closeCategoryModal: () => dispatch(closeCategoryModal()),
+  setInstructionField: (index, field, value) => dispatch(setInstructionField(index, field, value)),
+  setCategoryTitleField: (value) => dispatch(setCategoryTitleField(value)),
+  addCategory: () => dispatch(addCategory()),
+  editCategory: () => dispatch(editCategory()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProp)(AddEditCategoryModal);
