@@ -259,6 +259,7 @@ export const Instruction = styled.div`
 
 export const StyledIcon = styled.i`
   font-size: ${props => props.fontSize || '9px'};
+  color: ${props => props.color || 'var(--iris)'};
 `;
 
 export const CategoryHeaderActionsIcons = styled(StyledIcon)`
@@ -296,7 +297,7 @@ export const OpenIcon = styled(StyledIcon)`
   cursor: pointer;
 `;
 
-export const SideBarMask = styled.div`
+export const Mask = styled.div`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -426,4 +427,39 @@ export const ErrorMessage = styled.p`
   font-size: 12px;
   margin-top: 5px;
   margin-bottom: 5px;
+`;
+
+export const ModalContainer = styled.div`
+  width: 100%;
+  min-height: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 999998;
+`
+
+export const Modal = styled.div`
+  width: 400px;
+  background-color: var(--white);
+  min-height: 200px;
+  padding: 21px 22px;
+  z-index: 999999;
+`
+export const InstructionHeader = styled(AuthContainerTitle)`
+  font-size: 14px;
+  margin-bottom: 0;
+  margin-top: 10px;
+`;
+
+export const InstructionFormControl = styled(FormControl)`
+  margin-top: 10px !important;
+`;
+
+export const AddInstructionAnchor = styled.div`
+  color: var(--iris);
+  padding: 5px;
+  margin-top: 10px;
+  cursor: pointer;
 `;

@@ -6,7 +6,8 @@ import React, { Component } from 'react';
 import { CategoriesCollection } from './styled';
 import CategoryItemComponent from './CategoryItemComponent';
 
-import { editCategoryAction, deleteCategoryAction } from '../store/actions/categoryActions';
+import { deleteCategoryAction } from '../store/actions/categoryActions';
+import { openEditCategoryModal } from '../store/actions/AddEditCategoryAction';
 
 class CategoryCollectionComponent extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class CategoryCollectionComponent extends Component {
   }
 
   render() {
-    const { categoryItems, isAuthenticated, deleteCategory, editCategory } = this.props;
+    const { categoryItems, isAuthenticated, deleteCategory, openEditCategoryModal } = this.props;
 
     return (
       <CategoriesCollection>
@@ -24,7 +25,7 @@ class CategoryCollectionComponent extends Component {
               category={categoryItem}
               key={categoryItem._id}
               deleteCategory={deleteCategory}
-              editCategory={editCategory}
+              editCategory={openEditCategoryModal}
               isAuthenticated={isAuthenticated} />
           ))
         }
@@ -48,7 +49,7 @@ CategoryCollectionComponent.propTypes = {
     })
   ),
   deleteCategory: PropTypes.func.isRequired,
-  editCategory: PropTypes.func.isRequired,
+  openEditCategoryModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ categoryItems, search, auth }) => {
@@ -73,7 +74,7 @@ const mapStateToProps = ({ categoryItems, search, auth }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   deleteCategory: categoryId => dispatch(deleteCategoryAction(categoryId)),
-  editCategory: categoryId => dispatch(editCategoryAction(categoryId)),
+  openEditCategoryModal: categoryId => dispatch(openEditCategoryModal(categoryId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryCollectionComponent);

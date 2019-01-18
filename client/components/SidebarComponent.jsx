@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 
-import { SideBar, SideBarMask, OpenIcon } from './styled';
+import { SideBar, Mask, OpenIcon } from './styled';
 
 class SidebarComponent extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class SidebarComponent extends Component {
             font-size="12px" onClick={this.toggleSidebar} />}
           {this.props.children}
         </SideBar>
-        <SideBarMask
+        <Mask
           isShowMask={this.state.showSidebar}
           onClick={() => this.toggleSidebar(false)}/>
       </Fragment>

@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 
 import BodyComponent from './BodyComponent';
 import LoginComponent from './LoginComponent';
+import AddEditCategory from './AddEditCategory';
 import SidebarComponent from './SidebarComponent';
 import RegisterComponent from './RegisterComponent';
 
@@ -14,6 +15,8 @@ import {
   setLoginFormField,
   setRegisterFormField,
 } from '../store/actions/authActions';
+
+import { openAddCategoryModal } from '../store/actions/AddEditCategoryAction';
 
 import {
   Brand,
@@ -44,10 +47,12 @@ const App = ({
   setLoginFormField,
   registrationAction,
   setRegisterFormField,
+  openAddCategoryModal,
 }) => {
   return(
     <Fragment>
       <GlobalStyle />
+      <AddEditCategory />
       <SidebarComponent>
         <SidebarContainer>
           {
@@ -97,7 +102,7 @@ const App = ({
       <BodyComponent />
       {
         isAuthenticated &&
-        <AddButton>
+        <AddButton onClick={openAddCategoryModal}>
           <i className="fas fa-plus"></i>
         </AddButton>
       }
@@ -126,6 +131,7 @@ export const mapDispatchToProps = (dispatch) => {
     logout: () => dispatch(logout()),
     loginAction: () => dispatch(loginAction()),
     registrationAction: () => dispatch(registrationAction()),
+    openAddCategoryModal: () => dispatch(openAddCategoryModal()),
     toggleAuthForm: () => dispatch(toggleAuthForm()),
     setLoginFormField: (field, value) => dispatch(setLoginFormField(field, value)),
     setRegisterFormField: (field, value) => dispatch(setRegisterFormField(field, value)),
