@@ -27,6 +27,7 @@ module.exports = {
     '!server/**',
     '!client/__tests__/**',
     '!client/**/*.spec.js',
+    '!client/store/reducer/index.js'
   ],
 
   // The directory where Jest should output its coverage files

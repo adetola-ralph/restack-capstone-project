@@ -80,16 +80,15 @@ export const loginAction = () => async (dispatch, getState) => {
   try {
     await indicative.validateAll(auth.loginForm, loginFormRules, loginFormErrorMessages);
   } catch (err) {
-    console.log(err);
     return dispatch(loginFormError(err));
   }
 
   try {
     const response = await Axios.post('/api/auth/login', auth.loginForm);
     const result = response.data;
-    dispatch(succesfulLogin(result));
+    return dispatch(succesfulLogin(result));
   } catch (err) {
-    dispatch(failedLogin('Wrong username or password'));
+    return dispatch(failedLogin('Wrong username or password'));
   }
 };
 
@@ -111,7 +110,6 @@ export const registrationAction = () => async (dispatch, getState) => {
       auth.registerForm, registerFormRules, registraterFormErrorMessages,
     );
   } catch (err) {
-    console.log(err);
     return dispatch(registrationFormError(err));
   }
 
