@@ -11,12 +11,12 @@ import {
 } from '../constants';
 
 
-const getNewInstruction = () => ({
+export const getNewInstruction = () => ({
   title: '',
   command: '',
 });
 
-const defaultState = {
+export const defaultState = {
   newCategory: {
     title: '',
     instructions: [getNewInstruction()],
