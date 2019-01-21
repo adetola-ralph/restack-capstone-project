@@ -1,6 +1,6 @@
 import { SET_SEARCH_VALUE, SET_SEARCH_INDEX_RESULT } from '../constants';
 
-const defaultState = {
+export const defaultState = {
   searchIndexResult: [],
   searchValue: '',
 };

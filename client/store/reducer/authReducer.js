@@ -11,7 +11,7 @@ import {
   SUCCESSFUL_REGISTRATION,
 } from '../constants';
 
-const defaultState = {
+export const defaultState = {
   isAuthenticated: false,
   isLoginForm: true,
   isRegisterForm: false,
@@ -114,7 +114,8 @@ const authReducer = (state = defaultState, action) => {
     case (LOGIN_ERROR): {
       const { errors } = action;
 
-      const loginError = errors.reduce((agg, error) => {
+      const loginError = errors.reduce((previousValue, error) => {
+        const agg = previousValue;
         agg[error.field] = error.message;
         return agg;
       }, {});
@@ -128,7 +129,8 @@ const authReducer = (state = defaultState, action) => {
     case (REGISTRATION_ERROR): {
       const { errors } = action;
 
-      const registerError = errors.reduce((agg, error) => {
+      const registerError = errors.reduce((previousValue, error) => {
+        const agg = previousValue;
         agg[error.field] = error.message;
         return agg;
       }, {});

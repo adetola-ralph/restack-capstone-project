@@ -7,9 +7,9 @@ import {
   OPEN_EDIT_CATEGORY_MODAL,
   SET_CATEGORY_TITLE_FIELD,
   ADD_NEW_CATEGORY_SUCCESSFUL,
-} from '../../store/constants';
+} from '../../../store/constants';
 
-import AddEditCategoryReducer, { defaultState, getNewInstruction } from '../../store/reducer/addEditCategoryReducer';
+import AddEditCategoryReducer, { defaultState, getNewInstruction } from '../../../store/reducer/addEditCategoryReducer';
 
 describe('AddEditCategoryReducer', () => {
   test('getNewInstruction should return new instruction', () => {
