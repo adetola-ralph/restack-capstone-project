@@ -1,7 +1,7 @@
 import Boom from 'boom';
 import jwt from 'jsonwebtoken';
 
-import UserModel from '../model/user';
+import UserModel from '../model/User';
 
 const secretkey = process.env.SECRET_KEY || 'secret';
 
