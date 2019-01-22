@@ -64,12 +64,14 @@ export const editCategorySuccessful = category => ({
   category,
 });
 
-export const addNewCategoryFailure = () => ({
+export const addNewCategoryFailure = error => ({
   type: ADD_NEW_CATEGORY_FAILURE,
+  error,
 });
 
-export const editCategoryFailure = () => ({
+export const editCategoryFailure = error => ({
   type: EDIT_CATEGORY_FAILURE,
+  error,
 });
 
 export const addCategory = () => async (dispatch, getState) => {
@@ -86,7 +88,7 @@ export const addCategory = () => async (dispatch, getState) => {
     dispatch(addNewCategorySuccessful(result.data));
   } catch (err) {
     const error = err.response || err.request;
-    console.log(error);
+    dispatch(addNewCategoryFailure(error.data));
   }
 };
 
@@ -104,6 +106,6 @@ export const editCategory = () => async (dispatch, getState) => {
     dispatch(editCategorySuccessful(result.data));
   } catch (err) {
     const error = err.response || err.request;
-    console.log(error);
+    dispatch(editCategoryFailure(error.data));
   }
 };
