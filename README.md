@@ -6,3 +6,5 @@ React restack capstone project
 * Run `yarn` to install dependencies
 * Create an .env from the template .env.example
 * Run `yarn start:dev` to start the application in dev mode
+
+App can be access [here](https://r-capstone-react-project.herokuapp.com/)
