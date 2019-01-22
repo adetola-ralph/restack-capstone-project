@@ -1,5 +1,5 @@
 # restack-capstone-project
-React cestack capstone project
+React restack capstone project
 
 #### To run
 * Clone the repo with `git clone git@github.com:adetola-ralph/restack-capstone-project.git`
