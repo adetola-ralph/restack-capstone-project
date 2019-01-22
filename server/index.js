@@ -44,8 +44,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(morgan('dev'));
 
-app.use(express.static('public'));
-
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
 
@@ -64,6 +62,10 @@ app.get(['/'], function* (req, res) {
 
   res.send(index);
 });
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('public'));
+}
 
 /** ** static html *** */
 app.use('/static', express.static('static-pages'));
