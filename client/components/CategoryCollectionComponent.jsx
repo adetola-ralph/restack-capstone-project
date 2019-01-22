@@ -8,7 +8,7 @@ import CategoryItemComponent from './CategoryItemComponent';
 import { deleteCategoryAction } from '../store/actions/categoryActions';
 import { openEditCategoryModal as openEditCategoryModalAction } from '../store/actions/addEditCategoryAction';
 
-const CategoryCollectionComponent = ({
+export const CategoryCollectionComponent = ({
   categoryItems,
   isAuthenticated,
   deleteCategory,
@@ -18,6 +18,7 @@ const CategoryCollectionComponent = ({
     {
       categoryItems.map(categoryItem => (
         <CategoryItemComponent
+          className="category"
           category={categoryItem}
           key={categoryItem._id}
           deleteCategory={deleteCategory}
@@ -48,17 +49,13 @@ CategoryCollectionComponent.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ categoryItems, search, auth }) => {
+export const mapStateToProps = ({ categoryItems, search, auth }) => {
   let filteredCategoryItems;
   const { searchIndexResult, searchValue } = search;
   const { isAuthenticated } = auth;
 
   if (searchValue) {
     filteredCategoryItems = categoryItems.filter(item => searchIndexResult.includes(item._id));
-    // the arrangement of some the results are wrong
-    // .sort((a, b) => {
-    //   return searchIndexResult.indexOf(a._id) - searchIndexResult.indexOf(b._id);
-    // });
   }
 
   return {
@@ -67,7 +64,7 @@ const mapStateToProps = ({ categoryItems, search, auth }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   deleteCategory: categoryId => dispatch(deleteCategoryAction(categoryId)),
   openEditCategoryModal: categoryId => dispatch(openEditCategoryModalAction(categoryId)),
 });

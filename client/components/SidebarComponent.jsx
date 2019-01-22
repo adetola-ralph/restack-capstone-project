@@ -40,6 +40,7 @@ class SidebarComponent extends Component {
           {children}
         </SideBar>
         <Mask
+          className="mask"
           isShowMask={showSidebar}
           onClick={() => this.toggleSidebar(false)}
         />

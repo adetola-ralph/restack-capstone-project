@@ -11,7 +11,7 @@ import {
 
 import { searchWithValue } from '../store/actions/searchActions';
 
-const SearchComponent = ({ onChange, searchValue }) => (
+export const SearchComponent = ({ onChange, searchValue }) => (
   <Search>
     <SearchLabel>
       <SearchInput placeholder="Search..." value={searchValue} onChange={e => onChange(e.target.value)} />
@@ -29,14 +29,14 @@ SearchComponent.defaultProps = {
   searchValue: '',
 };
 
-const mapStateToProps = ({ search }) => {
+export const mapStateToProps = ({ search }) => {
   const { searchValue } = search;
   return {
     searchValue,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onChange: value => dispatch(searchWithValue(value)),
 });
 
