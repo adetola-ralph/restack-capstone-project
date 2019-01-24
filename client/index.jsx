@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import App from './components/App';
 import { loadCategory } from './store/actions/categoryActions';
 
+// custom styles
+import 'react-tippy/dist/tippy.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 // redux store

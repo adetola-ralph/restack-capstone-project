@@ -243,11 +243,12 @@ export const Instruction = styled.div`
   }
 
   div:nth-child(2) {
+    display: block !important;
     margin-top: 10px;
     margin-bottom: 18px;
-    font-family: 'Inconsolata', monospace;
-    font-size: 12px;
-    color: var(--cool-grey);
+    font-family: 'Inconsolata', monospace !important;
+    font-size: 12px !important;
+    color: var(--cool-grey) !important;
     cursor: pointer;
 
     :before {
