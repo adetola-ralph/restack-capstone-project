@@ -16,6 +16,9 @@ import {
 
 import { logout } from './authActions';
 
+import SearchService from '../../service/search';
+import search from '../../service/search';
+
 export const addInstruction = () => ({
   type: ADD_INSTRUCTION,
 });
@@ -86,9 +89,12 @@ export const addCategory = () => async (dispatch, getState) => {
   try {
     const result = await Axios.post('/api/categoryItems', newCategory, { headers: { 'x-access-token': token } });
     dispatch(addNewCategorySuccessful(result.data));
+    search.addDocumentToIndex([result.data]);
   } catch (err) {
+    console.error(err);
     const error = err.response || err.request;
-    dispatch(addNewCategoryFailure(error.data));
+    const errorMessage = error.data || err.message || err;
+    dispatch(addNewCategoryFailure(errorMessage));
   }
 };
 
@@ -104,8 +110,10 @@ export const editCategory = () => async (dispatch, getState) => {
   try {
     const result = await Axios.patch(`/api/categoryItems/${newCategory._id}`, newCategory, { headers: { 'x-access-token': token } });
     dispatch(editCategorySuccessful(result.data));
+    search.updateDocumentInIndex([result.data]);
   } catch (err) {
     const error = err.response || err.request;
-    dispatch(editCategoryFailure(error.data));
+    const errorMessage = error.data || err.message || err;
+    dispatch(editCategoryFailure(errorMessage));
   }
 };

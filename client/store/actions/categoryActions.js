@@ -12,6 +12,7 @@ import {
 import { logout } from './authActions';
 
 import SearchService from '../../service/search';
+import search from '../../service/search';
 
 export const loadingCategory = () => ({
   type: LOADING_CATEGORY,
@@ -39,7 +40,8 @@ export const loadCategory = () => async (dispatch) => {
     SearchService.init(categoryItems);
   } catch (err) {
     const error = err.response || err.request;
-    dispatch(loadCategoryFailure(error.data));
+    const errorMessage = error.data || err.message || err;
+    dispatch(loadCategoryFailure(errorMessage));
   }
 };
 
@@ -68,9 +70,12 @@ export const deleteCategoryAction = categoryId => async (dispatch, getState) => 
 
   try {
     await Axios.delete(`/api/categoryItems/${categoryId}`, { headers: { 'x-access-token': token } });
-    return dispatch(deleteCategory(categoryId));
+    dispatch(deleteCategory(categoryId));
+    return search.removeDocumentFromIndex({ _id: categoryId });
   } catch (err) {
+    console.error(err);
     const error = err.response || err.request;
-    return dispatch(deleteCategoryFailure(error.data));
+    const errorMessage = error.data || err.message || err;
+    return dispatch(deleteCategoryFailure(errorMessage));
   }
 };
