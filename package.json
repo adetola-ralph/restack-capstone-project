@@ -28,7 +28,7 @@
     "express-yields": "^1.1.2",
     "fs-extra": "^7.0.1",
     "indicative": "^5.0.8",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "lunr": "1",
     "mongoose": "^5.4.1",
     "morgan": "^1.9.1",
